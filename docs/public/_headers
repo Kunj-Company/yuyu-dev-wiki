@@ -1,0 +1,12 @@
+# Cloudflare Pages headers. VitePress copies this file to the root of the build output.
+# Other static hosts that understand the Netlify-style _headers format (Netlify, Cloudflare) can use it too.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Hashed build output never changes for a given file name, so it can be cached for a year.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

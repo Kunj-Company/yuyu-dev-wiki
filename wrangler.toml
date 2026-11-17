@@ -1,0 +1,6 @@
+# Cloudflare Pages settings for the Yuyu developer wiki.
+# Used by `npm run deploy:cloudflare` (wrangler pages deploy). With Git integration, set the build
+# command and output directory in the Cloudflare dashboard instead. See the README, "Hosting".
+name = "yuyu-dev-wiki"
+compatibility_date = "2026-11-01"
+pages_build_output_dir = "docs/.vitepress/dist"

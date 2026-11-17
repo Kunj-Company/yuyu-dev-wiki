@@ -11,6 +11,10 @@ const BASE = process.env.VITEPRESS_BASE || "/";
 // The Yuyu commit these docs were last verified against. Update it whenever the wiki is re-verified.
 const SOURCE_COMMIT = "b223291f04a46d9adad5800523a00e33d7ede930";
 
+// This wiki's own repository, used for the commit link on the home page. It is fixed on purpose: the remote
+// URL a CI checkout reports can carry credentials, so it is never read from git into a public page.
+const WIKI_REPO = process.env.WIKI_REPO_URL || "https://github.com/Kunj-Company/yuyu-dev-wiki";
+
 // Git details of this wiki, read once at build time (dev server: at start-up) and shown on the home page.
 const git = (...args: string[]) => {
   try {
@@ -19,10 +23,10 @@ const git = (...args: string[]) => {
     return "";
   }
 };
-const [hash = "", shortHash = "", committedAt = "", author = "", subject = ""] = git("log", "-1", "--format=%H%x1f%h%x1f%cI%x1f%an%x1f%s").split("\x1f");
-const wikiRepo = git("remote", "get-url", "origin")
-  .replace(/^git@github\.com:/, "https://github.com/")
-  .replace(/\.git$/, "");
+const [gitHash = "", gitShort = "", committedAt = "", author = "", subject = ""] = git("log", "-1", "--format=%H%x1f%h%x1f%cI%x1f%an%x1f%s").split("\x1f");
+// Cloudflare Pages exposes the commit being built, in case the checkout has no usable git history.
+const hash = gitHash || process.env.CF_PAGES_COMMIT_SHA || process.env.GITHUB_SHA || "";
+const shortHash = gitShort || hash.slice(0, 7);
 const BUILD_INFO = {
   wiki: {
     hash,
@@ -32,7 +36,7 @@ const BUILD_INFO = {
     subject,
     // A dirty tree means the build includes edits that are not committed yet.
     dirty: git("status", "--porcelain") !== "",
-    url: wikiRepo.startsWith("https://") ? `${wikiRepo}/commit/${hash}` : "",
+    url: hash ? `${WIKI_REPO}/commit/${hash}` : "",
   },
   source: { hash: SOURCE_COMMIT, shortHash: SOURCE_COMMIT.slice(0, 7), url: `${REPO}/commit/${SOURCE_COMMIT}` },
   builtAt: new Date().toISOString(),
