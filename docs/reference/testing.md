@@ -1,6 +1,6 @@
 # Testing
 
-Yuyu has three main automated layers (Vitest unit, Vitest against PostgreSQL, Playwright), plus two manual tools for performance measurement and help-centre screenshots. Run the narrowest layer while you work, then the full set before you open a PR. CI runs all three main layers.
+Yuyu has three main automated layers (Vitest unit, Vitest against PostgreSQL, Playwright), plus two manual tools for performance measurement and help-centre screenshots. Run the narrowest layer while you work, then the full set before you open a PR. CI runs all three main layers, but runs e2e only in production mode (`test:e2e:production`).
 
 ## Test layers
 

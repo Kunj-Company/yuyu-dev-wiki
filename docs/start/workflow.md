@@ -126,7 +126,7 @@ Triggered by a successful Quality gate run from a push to `main` in this reposit
 | CI step | Local equivalent |
 | --- | --- |
 | `prisma validate` | `npx prisma validate` (needs `DATABASE_URL` set, even though it doesn't connect) |
-| Schema drift | `npx prisma migrate diff --from-url "$DATABASE_URL" --to-schema-datamodel prisma/schema.prisma --exit-code` against a freshly migrated disposable database |
+| Schema drift | `npx prisma migrate diff --from-url "postgresql://yuyu:yuyu_dev@localhost:5432/yuyu_test" --to-schema-datamodel prisma/schema.prisma --exit-code` against a freshly migrated disposable database |
 | Type check | `npx next typegen && npx tsc --noEmit`. Run `typegen` first, as CI does, so Next.js's generated types are current |
 | `production:check` | Reads only the process environment (it doesn't load `.env`) and requires production values such as HTTPS `AUTH_URL` and `rediss://` Redis. CI passes because it exports every required variable plus `ALLOW_INSECURE_PRODUCTION_TESTS=1`, and GitHub Actions sets `CI=true` |
 | e2e production | `npm run build && npm run test:e2e:production` with a migrated `DATABASE_URL`. Every browser spec seeds its own fixtures through Prisma |

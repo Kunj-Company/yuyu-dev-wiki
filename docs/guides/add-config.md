@@ -76,7 +76,7 @@ For a secret, never log it or put it in an error message, an audit row or a UI p
 
 ### 5. Document and test
 
-- Add a row to the right table in `docs/CONFIGURATION.md` (`| Variable | Production | Purpose |`). Production is `Required`, `Recommended`, `Optional` or `Optional fallback`.
+- Add a row to the right table in `docs/CONFIGURATION.md` (`| Variable | Production | Purpose |`). Production is `Required`, `Recommended`, `Optional`, `Optional fallback`, `Legacy fallback`, `Provider-dependent`, `Development only` or `Never`.
 - `tests/unit/env.test.ts` covers `validateRuntimeEnvironment`. Add a case for a missing or malformed value if production requires it.
 - `tests/unit/production-check-script.test.ts` covers `scripts/check-production-env.mjs`. Add the matching case there.
 

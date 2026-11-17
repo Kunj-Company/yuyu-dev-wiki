@@ -51,11 +51,11 @@ ALTER TABLE "Event" ADD COLUMN "emailEntrantsOnResults" BOOLEAN NOT NULL DEFAULT
 ALTER TABLE "Event" ADD COLUMN "emailSubmissionReceipts" BOOLEAN NOT NULL DEFAULT false;
 ```
 
-Prisma does not model CHECK constraints, so add them by hand. Name them `<Table>_<rule>`, as in `SavedView_name_length`. To avoid a long scan under an exclusive lock, add a CHECK on an existing table `NOT VALID` first, then validate it. From `20261029000000_event_crew`:
+Prisma does not model CHECK constraints, so add them by hand. Name them `<Table>_<rule>`, as in `SavedView_name_length`. On a large table, adding a CHECK `NOT VALID` only avoids a long-held exclusive lock if `VALIDATE CONSTRAINT` runs as a separate, later step. Prisma runs one migration in a single transaction, so when both statements share a migration the lock is still held during the validation scan (roughly 70 ms per million rows, per `docs/production-operations.md`). On a small table that is cheap, as here. From `20261029000000_event_crew`:
 
 ```sql
 -- Every RSVP row so far has isCrew = false, so the check is added NOT VALID
--- (no scan under the ACCESS EXCLUSIVE lock) and validated separately.
+-- (cheap here because the table is small), then validated in the same migration.
 ALTER TABLE "RSVP" ADD CONSTRAINT "RSVP_crew_shape"
   CHECK (NOT "isCrew" OR ("eventId" IS NOT NULL AND "teamId" IS NULL AND "status" = 'CONFIRMED')) NOT VALID;
 ALTER TABLE "RSVP" VALIDATE CONSTRAINT "RSVP_crew_shape";
@@ -118,10 +118,10 @@ If you added a CHECK or cascade that protects an invariant, also cover it agains
 
 ### 9. Check for drift
 
-CI (`.github/workflows/quality.yml`) migrates a fresh database, runs `db:verify`, and then requires no drift:
+CI (`.github/workflows/quality.yml`) migrates a fresh database, runs `db:verify`, and then requires no drift (`DATABASE_URL` is set in the job environment):
 
 ```bash
-npx prisma migrate diff --from-url "$DATABASE_URL" --to-schema-datamodel prisma/schema.prisma --exit-code
+npx prisma migrate diff --from-url "postgresql://yuyu:yuyu_dev@localhost:5432/yuyu_test" --to-schema-datamodel prisma/schema.prisma --exit-code
 ```
 
 Run the same command locally against your migrated development database.

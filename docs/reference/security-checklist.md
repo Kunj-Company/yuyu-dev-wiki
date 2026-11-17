@@ -30,7 +30,7 @@ Use this checklist when you review any PR, grouped by the area a change touches.
 
 - [ ] **Sensitive account operations require recent authentication (`lib/reauth.ts`), bump `sessionVersion`, and are audited.** Old web and mobile sessions must die together. Tested in `tests/unit/security-actions.test.ts`, `tests/integration/auth-hardening.db.test.ts` and `mfa-recovery.db.test.ts`.
 - [ ] **Credential checks keep equal-work bcrypt and the per-account and per-IP limits.** This prevents account enumeration and brute force. See `lib/credentialsAuth.ts` and `tests/unit/auth-actions.test.ts`.
-- [ ] **Mobile tokens are stored only as SHA-256 digests, refresh tokens rotate, and reuse revokes the session.** Tested in `tests/unit/mobile-tokens.test.ts`, `mobile-auth.test.ts` and `tests/integration/mobile-api.db.test.ts`.
+- [ ] **Mobile tokens are stored only as SHA-256 digests, refresh tokens rotate, and reuse outside the 30 s retry grace window (`REFRESH_REUSE_GRACE_MS`) revokes the session.** Tested in `tests/unit/mobile-tokens.test.ts`, `mobile-auth.test.ts` and `tests/integration/mobile-api.db.test.ts`.
 - [ ] **Login return paths reject external URLs, backslashes and control characters.** This prevents open redirects. Tested in `tests/e2e/auth.spec.ts`.
 
 ## Secrets, tokens and capability links

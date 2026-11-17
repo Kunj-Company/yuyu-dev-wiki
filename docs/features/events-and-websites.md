@@ -17,7 +17,7 @@ An `Event` is the unit almost everything else hangs off: registrations, teams, c
 | `lib/shortLink.ts` / `lib/shortLinkResolve.ts` | Code generation and shape check; `resolveShortCode`, `resolveShortLinkSegment` |
 | `lib/publicEventAccess.ts` | `resolvePublicEventAccess(ForUser)`: the single rule for who may view a public event page |
 | `lib/eventVisibility.ts` | `listedEventAudienceWhere`, `isDiscoverableEvent`, `shouldIndexPublicEvent` |
-| `app/[orgSlug]/[eventSlug]/*` | Public event page, `schedule`, `sessions/[sessionSlug]`, `speakers/[speakerSlug]`, OG and Twitter images |
+| `app/[orgSlug]/[eventSlug]/*` | Public event page, `schedule`, `sessions/[sessionSlug]`, `speakers/[speakerSlug]`, `check-in`, `feedback`, `projects`, `results`, `team`, OG and Twitter images |
 | `app/[orgSlug]/i/[instanceId]/*` | Public page and schedule for a series occurrence |
 | `app/[orgSlug]/layout.tsx`, `app/[orgSlug]/page.tsx` | Organisation page; falls back to short-link resolution when no organisation matches |
 | `app/embed/[orgSlug]/[eventSlug]/page.tsx` | Framable event card (renders the canonical event page) |
@@ -97,7 +97,7 @@ Series stay individual: the series validators refuse team settings, and crew, ju
 
 `Event.shortCode` is an optional unique 7-character code served at `/:code`. `generateShortCode` uses `crypto.randomInt` and guarantees at least one uppercase letter, so a code can never equal an organisation slug (always lowercase).
 
-- `createEventShortLink` is idempotent: it writes with `updateMany({ where: { shortCode: null } })` so concurrent creates cannot overwrite each other, retries on a `P2002` collision, and returns the winner's code. `regenerateEventShortLink` overwrites unconditionally, retiring the old code. Both are owner/admin only (`canManageEvents`) and audited (`EVENT_SHORT_LINK_CREATED` / `_REGENERATED`).
+- `createEventShortLink` is idempotent: it writes with `updateMany({ where: { shortCode: null } })` so concurrent creates cannot overwrite each other, retries on a `P2002` collision, and returns the winner's code. `regenerateEventShortLink` overwrites unconditionally, retiring the old code. Both are owner/admin only (`canManageEvents`) and audited (`EVENT_SHORT_LINK_CREATED` / `_REGENERATED`; `regenerateEventShortLink` writes `_CREATED` when the event had no code yet and `_REGENERATED` otherwise).
 - Resolution happens in `app/[orgSlug]/layout.tsx` and `page.tsx` when no organisation matches the segment. `resolveShortLinkSegment` checks the shape, applies the `shortLink` rate limit (30/min per IP) and calls `resolveShortCode`, which returns a path only for a `PUBLISHED` event with a released page. Malformed, unknown, unreleased and rate-limited lookups all return `null`, which renders the same 404 as an unknown organisation. Audience rules (invite-only, approval) are left to the destination page.
 
 ### Embed, discovery and public pages

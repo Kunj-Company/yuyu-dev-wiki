@@ -58,7 +58,7 @@ content-type: application/json
 user-agent: Yuyu-Webhooks/1
 x-yuyu-event-id: evt_3f1c0a9b7d2e4f6a8b9c0d1e2f3a4b5c
 x-yuyu-event-type: registration.created
-x-yuyu-signature: t=1792656000,v1=<64 lowercase hex characters>
+x-yuyu-signature: t=1792663200,v1=<64 lowercase hex characters>
 ```
 
 The event id is `evt_` plus 16 random bytes in hex (`newWebhookEventId`). Every body is one envelope (`webhookEnvelopeSchema`):

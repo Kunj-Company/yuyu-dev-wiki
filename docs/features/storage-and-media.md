@@ -55,7 +55,7 @@ Each upload is a Server Action. Bodies are capped at 6 MB by `serverActions.body
 
 - `uploadFile` first checks that the key matches `ORGANISATION_DERIVATIVE_KEY` or `USER_DERIVATIVE_KEY`, that the id in the key equals the `organisationId` or `userId` passed in, and that `contentType` is `image/webp`. Otherwise it throws.
 - With `S3_BUCKET` and `S3_REGION` set, it sends a `PutObjectCommand` with `Cache-Control: public, max-age=31536000, immutable` and upserts an `Asset` with `provider: "s3"`.
-- Without S3 in production, it throws "Private object storage is not configured.". Startup also refuses to run without the S3 settings (`lib/env.ts`).
+- Without S3 in production, it throws "Private object storage is not configured.". In production, startup validation also lists `S3_BUCKET` and `S3_REGION` as required and refuses to run without them. `S3_ACCESS_KEY_ID` and `S3_SECRET_ACCESS_KEY` must be set together or both omitted, for an IAM role (`lib/env.ts`).
 - Without S3 in development, it stores the bytes in `Asset.fileData` with `provider: "database"`.
 
 ### Delivery (`GET /api/uploads/[...key]`)

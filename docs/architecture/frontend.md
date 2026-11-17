@@ -26,7 +26,7 @@ Yuyu's UI is React 19 on the Next.js 16 App Router. Pages are Server Components 
 
 - Pages and layouts are async Server Components. They call guards (`lib/dashboardGuards.ts`) and loaders (`lib/eventDashboard/*`, `lib/dashboardHome.ts`, and others) and pass plain props down.
 - The event dashboard loads its context once with `loadEventDashboard(orgSlug, eventId)`. That includes the `permissions` capability object, which decides which controls render ([Permissions](/architecture/permissions#capability-object-ui-parity)).
-- Client components call Server Actions directly and handle the `ActionResult`. The pattern from `components/event-dashboard/overview/WaitingForYou.tsx`:
+- Client components call Server Actions directly and handle the `ActionResult`. The pattern from `components/event-dashboard/overview/WaitingForYou.tsx`, simplified (the real component also handles team requests through `approveTeam` and `rejectTeam`):
 
 ```tsx
 const result = await (decision === "approve" ? approveRsvp : rejectRsvp)({ organisationSlug, rsvpId: request.id, eventId });
@@ -45,9 +45,10 @@ It runs inside `useTransition`, with a busy state per row, and the result is rep
 
 `ChromeSwitch` (client) picks the frame from the path:
 
-- Yuyu's own pages (`/about`, `/discover`, `/help`, capability pages such as `/ticket/…`) get `SiteHeader` and `SiteFooter`.
+- Yuyu's own pages (`/about`, `/features`, `/discover`, `/search`, `/help`, `/privacy`, `/terms`, `/join/…`, capability pages such as `/ticket/…`) get `SiteHeader` and `SiteFooter`.
 - `/dashboard`, `/account`, `/super-admin`, `/embed/` and `/login` render their own chrome.
-- Auth flows get a minimal header.
+- Auth flows (including `/super-admin-mfa`) get a minimal header.
+- Any path not listed, such as the organiser pages `/:org` and `/:org/:event`, falls through to "own" chrome. The `[orgSlug]` layout renders the organiser-branded header and footer (`chromeFor` in `components/chrome/ChromeSwitch.tsx`).
 
 `app/dashboard/layout.tsx` requires a session, loads `getAppShellData(userId)` (`lib/appShell.ts`), reads the `yy-sidebar` cookie (`isSidebarCollapsed`), and renders `AppShell`. The sidebar collapse state is in a cookie so the server renders the right width with no flash. Super-admin uses its own top bar (`components/super-admin/SuperAdminTopBar.tsx`) with no sidebar.
 
@@ -61,7 +62,7 @@ It runs inside `useTransition`, with a busy state per row, and the result is rep
 
 ### Dates and numbers
 
-All UI dates go through `lib/format/datetime.ts` (`formatDateBlock`, `formatDayLong`, `formatTime`, `formatTimeRange`, `formatRelativeDay`, `formatRelativeTime` and others). These always take the event's IANA `timeZone`. Formatters are built through `cachedDateTimeFormat` in `lib/format/intlCache.ts` and never per row, because large-event dashboards render tens of thousands of dates. Don't parse or format `Date` ad hoc in components.
+All UI dates go through `lib/format/datetime.ts` (`formatDateBlock`, `formatDayLong`, `formatTime`, `formatTimeRange`, `formatRelativeDay`, `formatRelativeTime` and others). These take the event's IANA `timeZone`. The file also exports `viewerTimeZone()` for formatting in the viewer's own zone. Formatters are built through `cachedDateTimeFormat` in `lib/format/intlCache.ts` and never per row, because large-event dashboards render tens of thousands of dates. Don't parse or format `Date` ad hoc in components.
 
 ### Help centre
 

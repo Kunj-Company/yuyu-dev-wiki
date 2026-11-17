@@ -45,7 +45,7 @@ flowchart LR
 | `deps` | `node:22-alpine` | `npm ci`. Copies `prisma/schema.prisma` first so the Prisma `postinstall` works |
 | `migrator` | `deps` | Adds `prisma/` and the `verify-production-schema.mjs` and `check-instance-secrets.mjs` scripts. `CMD npx prisma migrate deploy` |
 | `builder` | `node:22-alpine` | `ARG NEXT_PUBLIC_BASE_URL`, `prisma generate`, `npm run build`. The Server Actions key comes from a BuildKit secret mount (`required=true`) |
-| `runner` | `node:22-alpine` | `NODE_ENV=production`, `font-dejavu` (for Sharp-rendered tickets and certificates), non-root user `nextjs` (uid 1001), standalone output, `.env*` files deleted, `HEALTHCHECK` on `/api/health`, `CMD node server.js` on port 3000 |
+| `runner` | `node:22-alpine` | `NODE_ENV=production`, `font-dejavu` (for Sharp-rendered tickets and certificates), non-root user `nextjs` (uid 1001), standalone output, `.env`, `.env.local`, `.env.production` and `.env.development` deleted, `HEALTHCHECK` on `/api/health`, `CMD node server.js` on port 3000 |
 
 ```bash
 docker build --target migrator -t registry.example.com/yuyu-migrator:VERSION .
@@ -60,7 +60,7 @@ Rules for building:
 - Build both images from the same commit and give them the same immutable tag. Never deploy `latest`.
 - `NEXT_PUBLIC_BASE_URL` is the only build-visible setting. Changing it means a rebuild.
 - The runtime needs the same `NEXT_SERVER_ACTIONS_ENCRYPTION_KEY` that the build used.
-- The `runner` image has neither the Prisma CLI nor the ops scripts. Run `storage:migrate`, `db:backup` and `db:restore` from a trusted checkout.
+- The `runner` image has neither the Prisma CLI nor the ops scripts (only the `prisma/` schema and migrations directory is copied). Run `storage:migrate`, `db:backup` and `db:restore` from a trusted checkout.
 
 ### Docker Hub publishing
 
@@ -156,7 +156,7 @@ Also configure an independent scheduler to call `POST /api/internal/outbox` ever
 | Command | Behaviour |
 | --- | --- |
 | `npm run db:backup` | Loads `.env` if present (injected values win). Reads only `DATABASE_URL` and requires its TLS setting. Checks free space (database size plus 20% plus 256 MiB). Writes a compressed custom-format archive and a SHA-256 sidecar to the git-ignored `backups/` directory, keeping the newest seven pairs |
-| `npm run db:backup -- --s3-bucket ... --s3-region ... [--s3-endpoint ...] --s3-access-key-id ... --s3-secret-access-key ... --s3-prefix ...` | Also uploads to a dedicated private backup bucket. Add `--s3-force-path-style` if the provider needs it |
+| `npm run db:backup -- --s3-bucket ... --s3-region ... --s3-endpoint ... --s3-access-key-id ... --s3-secret-access-key ... --s3-prefix ...` | Also uploads to a dedicated private backup bucket. All five of `--s3-bucket`, `--s3-region`, `--s3-endpoint`, `--s3-access-key-id` and `--s3-secret-access-key` are required for S3 operations, and the endpoint must be an HTTPS URL. Add `--s3-force-path-style` if the provider needs it |
 | `npm run db:restore -- --file backups/<archive>.dump --production --confirm-database <name>` | Destructive. Refuses development, test and localhost targets. Takes a local safety backup first, then runs migration status and the schema check |
 | `npm run db:restore -- --s3-key <prefix>/<archive>.dump <same S3 flags> --production --confirm-database <name>` | Downloads, verifies the checksum, restores, and removes the temporary copy |
 | `--via-local-tunnel` | Lets a restore go through a local proxy or SSH tunnel. Development and test database names are still refused |

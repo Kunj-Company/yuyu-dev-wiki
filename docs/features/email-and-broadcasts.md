@@ -56,7 +56,7 @@ Every email Yuyu sends goes through the transactional outbox. A business change 
 - Unauthenticated SMTP is refused unless `smtpAllowUnauthenticated` is set for a private relay.
 - Transports set `disableFileAccess` and `disableUrlAccess`, with timeouts of 30 s for connection and greeting and 60 s for the socket.
 
-One SMTP login per message is why the worker drains 20 emails per pass. Larger batches triggered Gmail's "Too many login attempts".
+One SMTP login per message is why the worker drains one batch of 20 per pass (`OUTBOX_DRAIN_BATCH=20`, `OUTBOX_DRAIN_MAX_BATCHES=1`). Larger batches triggered Gmail's "Too many login attempts".
 
 ### Broadcast pipeline
 
@@ -102,7 +102,7 @@ The same cores back the mobile endpoints under `…/broadcasts` (see [Mobile API
 ## Making changes
 
 - **Add a transactional kind.** Follow [Add an email](/guides/add-an-email): add a payload type, an `enqueue*` helper and an `as*Payload` parser in `lib/outbox.ts`, a sender in `lib/email/index.ts`, and a branch in `deliverOutboxBatch`. Then decide on `BULK_OUTBOX_KINDS`, `containsCapability` and `OUTBOX_KINDS_ADDED_AFTER_1_0`, and add tests in `tests/unit/outbox.test.ts` and `tests/unit/email-construction.test.ts`.
-- **Add a placeholder.** Add it to `BROADCAST_PLACEHOLDERS` and `BroadcastVariables` in `lib/broadcastTemplate.ts`. If it is a URL, also add it to `BROADCAST_URL_PLACEHOLDERS` and the `HREF_PLACEHOLDER` and `HREF_SENTINEL` patterns in `lib/eventBroadcast.ts`. Then fill it in `broadcastVariablesFor` and `sampleBroadcastVariables`.
+- **Add a placeholder.** Add it to `BROADCAST_PLACEHOLDERS` and `BroadcastVariables` in `lib/broadcastTemplate.ts`. If it is a URL, also add it to `BROADCAST_URL_PLACEHOLDERS` and the `HREF_PLACEHOLDER` and `HREF_SENTINEL` patterns in `lib/eventBroadcast.ts`. Then fill it in `broadcastVariablesFor` (`lib/outbox.ts`) and `sampleBroadcastVariables` (`lib/broadcastTemplate.ts`).
 - **Add a design.** Add an entry to `BROADCAST_DESIGNS`, implement its frame in `renderBroadcastDesign`, and extend `tests/unit/broadcast-designs.test.ts`. Input validation (`broadcastDesignSchema` in `lib/validators.ts`) is derived from `BROADCAST_DESIGN_IDS`, but the mobile contract lists the ids explicitly, so update `docs/mobile-api.openapi.yaml` too.
 - **Add a starter template.** Append to `BROADCAST_STARTER_TEMPLATES` in `lib/broadcastTemplate.ts`.
 

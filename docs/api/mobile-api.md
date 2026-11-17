@@ -108,8 +108,8 @@ Paths are relative to `/api/mobile/v1`. `…` stands for `/orgs/:orgSlug/events/
 
 | Method | Path | Auth | Purpose |
 | --- | --- | --- | --- |
-| `GET` | `/public/discover?cursor=&limit=` | none | Listed upcoming events, `limit` 1 to 50 (default 20) |
-| `GET` | `/public/search?q=` | none | Same predicate and 48-result cap as `GET /api/search` |
+| `GET` | `/public/discover?cursor=&limit=` | none | Listed upcoming events, `limit` 1 to 50 (default 20). Also subject to the per-IP `search` bucket (60 per minute) |
+| `GET` | `/public/search?q=` | none | Same predicate and 48-result cap as `GET /api/search`. Also subject to the per-IP `search` bucket (60 per minute) |
 | `GET` | `/public/short/:code` | none | Resolve a short link to `{ orgSlug, eventSlug }` |
 | `GET` | `/public/events/:orgSlug/:eventSlug` | Optional | Public event, registration form, programme, speakers |
 | `GET` | `/public/events/:orgSlug/:eventSlug/feedback` | none | Open feedback form definition |
@@ -132,7 +132,7 @@ Paths are relative to `/api/mobile/v1`. `…` stands for `/orgs/:orgSlug/events/
 | `POST` | `…/check-in/preview` | `CHECK_IN` (core) | Look up a ticket or RSVP without committing |
 | `POST` | `…/check-in` | `CHECK_IN` (core) | Check in by `rawInput` or `rsvpId`. `NEEDS_FORCE` allows an override |
 | `POST` | `…/check-in/undo` | `CHECK_IN` (core) | Undo a check-in |
-| `GET` | `…/check-in/lookup?q=` | `CHECK_IN` (core) | Name, email or team search (up to 12 rows) |
+| `GET` | `…/check-in/lookup?q=` | `CHECK_IN` (core) | Name, email or team search, `q` 2 to 200 characters (up to 12 rows) |
 | `GET` | `…/check-in/stats` | `checkIn` | Confirmed, checked in, ten most recent |
 | `GET` | `…/check-in/roster` | `CHECK_IN` (core) | Offline roster including ticket tokens |
 | `POST` | `…/check-in/sync` | `CHECK_IN` (core) | Upload 1 to 500 offline check-ins |
@@ -242,7 +242,7 @@ Core functions return UI-safe messages. `classifyActionError` maps them to codes
 
 | Layer | Limit |
 | --- | --- |
-| Proxy `global` (per IP) | 300 per minute on all `/api` routes, returned in the mobile envelope |
+| Proxy `global` (per IP) | 300 per minute on every `/api/*` path except `/api/health`, returned in the mobile envelope |
 | Proxy `auth` (per IP) | 10 per minute on `POST /auth/login` and `POST /auth/google` |
 | `mobileAuth` (per IP) | 30 per minute on `POST /auth/refresh` |
 | `mobileApi` (per user) | 300 authenticated requests per minute, keyed by a hash of the user id |

@@ -164,7 +164,7 @@ Every error has one shape:
 
 | Layer | Limit | Key |
 | --- | --- | --- |
-| Proxy `global` bucket (`proxy.ts`) | 300 requests per minute | Client IP. Returns the `/api/v1` error shape |
+| Proxy `global` bucket (`proxy.ts`) | 300 requests per minute | Client IP. Applies to every `/api/*` path except `/api/health` (`proxy.ts`). Returns the `/api/v1` error shape |
 | `apiRead` bucket (`handleMachineApiRequest`) | 600 requests per minute | A hash of the **API client** id, so extra credentials on one client do not multiply capacity |
 
 The limiter is Redis-backed. In production it fails closed when Redis is unavailable.

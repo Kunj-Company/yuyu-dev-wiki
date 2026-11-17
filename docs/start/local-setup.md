@@ -6,7 +6,7 @@
 
 | Need | Notes |
 | --- | --- |
-| Node.js 20 or newer | CI uses Node 20. Node 22.18 or newer is needed only for `npm run brand:generate` and the perf seed, which run TypeScript files directly |
+| Node.js 20 or newer | CI uses Node 20, while the production Docker image builds on `node:22-alpine`. Node 22.18 or newer is needed only for `npm run brand:generate` and the perf seed, which run TypeScript files directly |
 | npm | The repo ships `package-lock.json`. CI uses `npm ci` |
 | Docker with Compose | `docker-compose.yml` provides PostgreSQL only |
 | `openssl` | For generating local secrets |
@@ -143,7 +143,7 @@ If `/super-admin` returns a 404, the signed-in email isn't verified or doesn't m
 ```bash
 curl -s http://localhost:3000/api/health      # dependency-free liveness
 npm run db:status
-npm run lint && npx tsc --noEmit && npm run test:unit
+npm run lint && npx next typegen && npx tsc --noEmit && npm run test:unit
 ```
 
 To run the integration suites, create a separate disposable database. Never use `yuyu_dev`:

@@ -93,7 +93,7 @@ When the alerts webhook is enabled, each app process posts `{ text }` to a Matte
 
 - uncaught server errors (`onRequestError` in `instrumentation.ts`), reported with the route pattern rather than the path
 - server `console.error` lines, plus `console.warn` lines when **Include warnings** is on (`installOpsAlertForwarding`)
-- Auth.js sign-in failures and outbox email delivery failures (a retried failure is a warning, a permanent one an error)
+- Auth.js errors passed to its logger (`lib/authLogger.ts`), such as configuration and provider failures, but not routine outcomes like a wrong password, and outbox email delivery failures (a retried failure is a warning, a permanent one an error)
 - browser crashes via `POST /api/client-errors`, which is same-origin only, size-capped, uses the `clientError` bucket (10 per minute per IP) and always returns an empty `204`
 - an "Instance started" note at boot
 

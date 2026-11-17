@@ -68,7 +68,7 @@ These are legacy fallbacks. SMTP saved in Super admin → Settings **replaces ev
 | `SMTP_SECURE` | No | `false` | `true` or `false` |
 | `SMTP_USER` / `SMTP_PASSWORD` | Needed when a service or host is set | None | `production:check` requires both unless `SMTP_ALLOW_UNAUTHENTICATED=1` |
 | `SMTP_ALLOW_UNAUTHENTICATED` | No | `0` | `1` only for an intentionally unauthenticated private relay |
-| `OUTBOX_RETENTION_DAYS` | No | `30` (1 to 365) | Days before sent or failed non-capability outbox rows are purged (`lib/retention.ts`) |
+| `OUTBOX_RETENTION_DAYS` | No | `30` (1 to 365) | Days before sent rows (by `sentAt`) or failed rows (by `createdAt`) are purged, with no capability filter (`lib/retention.ts`). Capability rows are already removed at delivery or terminal failure |
 
 Neither the startup check nor `production:check` requires email settings. Until SMTP exists in the panel or the environment, production email stays queued.
 
@@ -104,7 +104,7 @@ These values never run, retain or restore backups. Any backup field saved in the
 
 | Variable | Production | Default | Purpose |
 | --- | --- | --- | --- |
-| `ALLOW_INSECURE_PRODUCTION_TESTS` | **Never** | Unset | Takes effect only together with `CI=true`. Permits HTTP origins, non-TLS PostgreSQL, Redis and S3, the in-memory Redis fallback, and `WEBHOOKS_ALLOW_PRIVATE_TARGETS` in a production build |
+| `ALLOW_INSECURE_PRODUCTION_TESTS` | **Never** | Unset | Takes effect only together with `CI=true`. Permits HTTP origins, non-TLS PostgreSQL, Redis, S3 and SMTP (skipping TLS 1.2+ and certificate verification under `CI=true`, `lib/email/transporter.ts`), and `WEBHOOKS_ALLOW_PRIVATE_TARGETS` in a production build. The in-memory Redis fallback applies only when `REDIS_URL=memory://` |
 | `CI` | **Never** in a deployment | Unset | Set by CI. Combined with the switch above, it enables the test mode |
 | `WEBHOOKS_ALLOW_PRIVATE_TARGETS` | **Never** | Unset | `1` lets organisation webhooks reach `http://` and private or loopback receivers. Ignored by a production server outside CI test mode, and refused by `production:check` |
 

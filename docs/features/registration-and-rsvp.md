@@ -28,7 +28,7 @@ An `RSVP` row is a person's registration for a one-off event (`eventId`) or a se
 | Surface | Path into the core |
 | --- | --- |
 | Public form and embed | `POST /api/rsvp` → `submitRsvpCore(body, { userId, team })` |
-| Mobile app | `POST /api/mobile/v1/rsvp` → `submitRsvpCore` |
+| Mobile app | `POST /api/mobile/v1/rsvp` → `submitRsvpCore(body, { userId })` (no team intent) |
 | Organiser manual add | `addManualRsvp` → `addManualRsvpForUser` → `submitManualGuestRsvpCore` |
 | Team create/join | `submitRsvpCore` with a `team` intent, plus `lib/core/teams.ts` (see [Teams](/features/teams)) |
 | Crew | `lib/core/crew.ts` (see [Crew](/features/crew)) |

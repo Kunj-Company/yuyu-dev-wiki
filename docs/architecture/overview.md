@@ -100,7 +100,7 @@ The mobile API reuses the cores ([Mutation cores](/architecture/mutation-cores))
 ### Rendering model
 
 - Server Components by default; `"use client"` only for browser state, effects, handlers or browser APIs.
-- The root layout calls `await connection()` so Next.js waits for a real request and can attach the proxy's nonce to framework scripts. As a result, application pages are dynamically rendered. `robots.txt` and `sitemap.xml` stay static.
+- The root layout calls `await connection()` so Next.js waits for a real request and can attach the proxy's nonce to framework scripts. As a result, application pages are dynamically rendered. `robots.txt` is static.
 - There is deliberately no root `app/loading.tsx`. A Suspense boundary at the root would stream a 200 before `notFound()` or `redirect()` run, which would break real 404s and the short-link 307.
 - A dashboard `loading.tsx` may only sit below a layout that has already awaited the page's access check (`lib/dashboardGuards.ts`). See [Permissions](/architecture/permissions#dashboard-guards).
 
@@ -112,7 +112,7 @@ The mobile API reuses the cores ([Mutation cores](/architecture/mutation-cores))
 - **Production rate limits fail closed.** If Redis is unavailable, `checkRateLimitById` returns "limited" in production (`lib/rateLimit.ts`, covered by `tests/unit/rate-limit-redis-outage.test.ts`).
 - **Never log paths or bearer values in alerts.** `instrumentation.ts` sends route patterns, and `lib/opsAlerts.ts` redacts text.
 - **No root loading boundary.** Enforced by `tests/unit/dashboard-loading-boundaries.test.ts`.
-- **In-process singletons go on `globalThis` under `Symbol.for(...)`.** Next.js can load a module more than once per process (Server Action and route-handler bundles). Examples are the outbox worker state and the ticket check-in emitter.
+- **In-process singletons go on `globalThis`.** Next.js can load a module more than once per process (Server Action and route-handler bundles). The ticket check-in emitter, the ops-alert state and the pending webhook emits sit under `Symbol.for(...)` keys. The outbox worker uses a plain `globalThis.__yuyuOutboxWorker` property.
 
 ## Making changes
 

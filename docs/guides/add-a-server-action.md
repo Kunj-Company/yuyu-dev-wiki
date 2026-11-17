@@ -4,7 +4,7 @@
 
 Add an authenticated dashboard mutation end to end: input validation, the domain logic in a mutation core, a thin `"use server"` wrapper, the client call, and tests. Every Server Action needs **authentication, authorisation, Zod validation, rate limiting where applicable, and audit behaviour before it mutates anything** (`AGENTS.md`, "Security and tenancy rules").
 
-This guide follows two real examples:
+This guide follows three real examples:
 
 | Example | Shape | Files |
 | --- | --- | --- |

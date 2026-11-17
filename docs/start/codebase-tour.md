@@ -35,7 +35,7 @@ yuyu/
 | `app/(auth)/` | `/login`, `/reset-password`, `/verify-email` |
 | `app/[orgSlug]/` | Public organisation page, and under `[eventSlug]/` the event page, `schedule`, `sessions`, `speakers`, `feedback`, `projects`, `results`, `check-in` (PIN station), `team` (join link). `i/` holds series instances |
 | `app/account/` | Profile, `registrations`, `organisations`, `security`, `teams`, `submissions` |
-| `app/dashboard/` | Organisation dashboard: `[orgSlug]/` with `(overview)`, `event/[eventId]`, `members`, `series`, `settings`, plus `org/new` |
+| `app/dashboard/` | Organisation dashboard: `(home)` (the landing page), `security`, and `[orgSlug]/` with `(overview)`, `event/[eventId]`, `members`, `series`, `settings`, plus `org/new` |
 | `app/super-admin/` | Instance admin pages. Every `page.tsx` calls `await requireSuperAdminMfa()` |
 | `app/super-admin-mfa/` | The TOTP step-up prompt |
 | `app/ticket/`, `team/`, `submit/`, `attend/`, `crew/`, `join/` | Capability-link pages opened by bearer tokens |
@@ -127,7 +127,7 @@ See [Testing](/reference/testing).
 
 | Thing | Convention | Example |
 | --- | --- | --- |
-| Server Action modules | kebab-case in `app/actions/` | `rsvp-lifecycle.ts`, `checkin-lists.ts` |
+| Server Action modules | kebab-case in `app/actions/` (exception: `shortLink.ts`) | `rsvp-lifecycle.ts`, `checkin-lists.ts` |
 | `lib` modules | camelCase | `rsvpCore.ts`, `ticketCheckInEvents.ts` |
 | Browser-only `lib` modules | `.client.ts` suffix | `offline-checkin.client.ts`, `reportClientError.client.ts` |
 | Product components | PascalCase `.tsx` | `components/brand/DotMark.tsx` |
@@ -145,3 +145,7 @@ Server-only modules start with `import "server-only";` (for example `lib/emailVe
 - [docs/ARCHITECTURE.md](https://github.com/twilighty-abhi/yuyu/blob/main/docs/ARCHITECTURE.md)
 - [docs/ROUTES.md](https://github.com/twilighty-abhi/yuyu/blob/main/docs/ROUTES.md)
 - [Architecture overview](/architecture/overview), [Mutation cores](/architecture/mutation-cores), [Data model](/architecture/data-model)
+
+## About these docs
+
+These docs were verified against [twilighty-abhi/yuyu](https://github.com/twilighty-abhi/yuyu/tree/b223291) at commit `b223291`. File paths on every page are relative to the repository root. Where the repository's own `docs/` handbook goes deeper, the page links to it, and `prisma/schema.prisma` is the authoritative source for the data model. The [component library](/library/index.html) is a snapshot of Yuyu's components from the same commit.

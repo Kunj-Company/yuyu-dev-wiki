@@ -57,7 +57,7 @@ erDiagram
 
 How to read it:
 
-- **`Organisation` is the tenant.** `Event`, `EventSeries`, `Asset`, `ApiClient`, `WebhookEndpoint`, `SavedView` and `AuditEvent` carry `organisationId`. Everything else reaches the tenant through one of those.
+- **`Organisation` is the tenant.** `Event`, `EventSeries`, `Asset`, `ApiClient`, `WebhookEndpoint`, `SavedView` and `AuditEvent` carry `organisationId` (nullable on `Asset` and `AuditEvent`). Everything else reaches the tenant through one of those.
 - **`Membership`** is unique on `(userId, organisationId)`, with role `OWNER | ADMIN | MEMBER`.
 - **`EventCollaborator`** targets exactly one event or one series, with `permissions EventPermission[]` (`EDIT_DETAILS`, `MANAGE_REGISTRATIONS`, `MANAGE_INVITATIONS`, `CHECK_IN`, `PUBLISH_AND_SCHEDULE`, `JUDGE`).
 - **`RSVP`** belongs to exactly one target, either `eventId` (a standalone event) or `eventInstanceId` (one occurrence of a series). It is either a user's (`userId`) or a guest's (`guestEmail`, `guestName`). `attendeeKey` (`user:<id>` or `guest:<normalised email>`) is the dedupe key. `checkInToken` is the ticket bearer value. `checkedInAt` is the current check-in projection, and `CheckInEvent` is its immutable history.
@@ -115,10 +115,10 @@ Triggers: `write_security_audit_fallback()` (`20260827020000_database_audit_fall
 
 ## Conventions
 
-- **Ids** are `String @id @default(cuid())` on almost every model. Exceptions use natural keys: composite ids such as `ApiClientScope (apiClientId, scope)`, `EventCrewJoinLink.eventId`, and `OperationalHeartbeat.key`. `RSVP.checkInToken` uses `cuid(2)`.
+- **Ids** are `String @id @default(cuid())` on almost every model. Exceptions use natural keys: composite ids such as `ApiClientScope (apiClientId, scope)` and `EventSessionSpeaker (eventSessionId, speakerId)`, `EventCrewJoinLink.eventId`, and `OperationalHeartbeat.key`. `InstanceSetting` has a plain `id String @id` with no cuid default. `RSVP.checkInToken` uses `cuid(2)`.
 - **Timestamps** are `createdAt DateTime @default(now())`, plus `updatedAt @updatedAt` where edits matter. Prisma stores `DateTime` as `timestamp(3)` holding UTC wall-clock time.
 - **Raw SQL timestamps go through `lib/sqlTimestamp.ts`.** A JS `Date` bound into `$queryRaw` is sent as `timestamptz` and shifted by the session `TimeZone`. Use `sqlUtcTimestamp(date)` and `SQL_UTC_NOW` instead (used in `lib/core/attendanceCheck.ts`, `lib/core/judging.ts`, `lib/webhooks/delivery.ts`). `tests/integration/raw-sql-timezone.db.test.ts` covers it.
-- **Secrets are stored as digests or ciphertext only.** Examples include `Team.manageTokenHash`, `AttendanceCheck.tokenHash`, `MobileSession` token hashes (SHA-256), `User.mfaSecretEncrypted` (AES-256-GCM) and `User.recoveryCodeHashes` (HMAC). Field doc comments in the schema say "never expose or log".
+- **Secrets are stored as digests or ciphertext only.** Examples include `Team.manageTokenHash`, `AttendanceCheck.tokenHash`, `MobileSession` token hashes (SHA-256), `User.mfaSecretEncrypted` (AES-256-GCM) and `User.recoveryCodeHashes` (HMAC). Some field comments (for example on `User.mfaSecretEncrypted`) say "never expose or log".
 - **Event timezone** is an IANA string on `Event.timezone` and `EventSeries.timezone`. Format through `lib/format/*`, never ad hoc.
 - **Row locks for capacity:** `SELECT … FOR UPDATE` on the `Event` row (or `EventSeries` plus `EventInstance`) before counting. See [Mutation cores](/architecture/mutation-cores).
 - **Cascades** come from the schema. For example, deleting an `Event` cascades its RSVPs, while deleting a `User` sets `RSVP.userId` and `CheckInEvent.actorUserId` to null so history survives.

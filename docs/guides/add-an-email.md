@@ -61,7 +61,7 @@ export function asSubmissionReceivedPayload(value: Prisma.JsonValue): Submission
 }
 ```
 
-Token fields get a shape check (`isSubmissionTokenShape`, `isAttendanceTokenShape`, `isTeamTokenShape`), and URLs go through `isSafeMessageUrl`.
+Token fields get a shape check: `isSubmissionTokenShape` (`lib/submissionToken.ts`), `isAttendanceTokenShape` (`lib/attendanceToken.ts`) and `isTeamTokenShape` (`lib/teamToken.ts`), all imported into `lib/outbox.ts`. URLs go through `isSafeMessageUrl`, which is local to `outbox.ts`.
 
 ### 3. Add the renderer and sender in `lib/email/index.ts`
 

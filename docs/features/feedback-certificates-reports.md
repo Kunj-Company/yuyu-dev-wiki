@@ -61,7 +61,7 @@ Certificate eligibility proves knowledge of a confirmed attendee's email, not co
 
 `GET /api/reports/event/:eventId` and `GET /api/reports/instance/:instanceId` (Node runtime) return `404` unless the caller is signed in, the event or occurrence has ended (`isReportAvailable`), and the caller is an organisation owner or admin. The metrics come from `getEventReportMetrics` or `getOccurrenceReportMetrics`, and `createEventReportPdf` draws the sign-up timeline, arrivals by time and device, programme, speakers and sponsors, answer counts, emails sent, and team. `summariseQuestions` gives per-option counts for choice questions, but typed answers (free text, email, phone, "Other") are only **counted**. Downloads are audited as `EVENT_REPORT_DOWNLOADED` or `EVENT_OCCURRENCE_REPORT_DOWNLOADED`.
 
-### CSV exports
+### Exports
 
 | Route | Who | Audit |
 | --- | --- | --- |
@@ -70,9 +70,9 @@ Certificate eligibility proves knowledge of a confirmed attendee's email, not co
 | `/api/exports/events/:eventId/teams` | `resolveOrganiserEvent` (`lib/core/teams.ts`) | `TEAM_LIST_EXPORTED` |
 | `/api/exports/events/:eventId/judging` | `resolveJudgingOrganiser` (`lib/judgingAccess.ts`) | `JUDGING_SUBMISSIONS_EXPORTED`, `JUDGING_SCORES_EXPORTED` |
 | `/api/exports/events/:eventId/feedback` | Owner or admin | `FEEDBACK_RESPONSES_EXPORTED` |
-| `/api/exports/account` | The signed-in user (`dataExport` bucket, 5 per hour) | `ACCOUNT_DATA_EXPORTED` |
+| `/api/exports/account` (JSON, not CSV) | The signed-in user (`dataExport` bucket, 5 per hour) | `ACCOUNT_DATA_EXPORTED` |
 
-Every cell goes through `escapeCsvCell`, which prefixes formula-like values (`=`, `+`, `-` or `@`, even after leading whitespace or control characters) with `'`. `csvByteStream` and `csvStreamResponse` stream rows in bounded batches. Every denial and every malformed request gets the same empty `404` with `EXPORT_NO_STORE_HEADERS` (`private, no-store`, `no-referrer`, `nosniff`). Audit metadata records filter **names** only (`exportFilterNames`), never search text.
+For the CSV routes, every cell goes through `escapeCsvCell`, which prefixes formula-like values (`=`, `+`, `-` or `@`, even after leading whitespace or control characters) with `'`. `csvByteStream` and `csvStreamResponse` stream rows in bounded batches. On the CSV routes, every denial and every malformed request gets the same empty `404` with `EXPORT_NO_STORE_HEADERS` (`private, no-store`, `no-referrer`, `nosniff`). Audit metadata records filter **names** only (`exportFilterNames`), never search text.
 
 ### Saved views
 

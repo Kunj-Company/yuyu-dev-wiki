@@ -27,7 +27,7 @@ In Yuyu, pages and handlers resolve access on the server from the current databa
 | Guard | Allows |
 | --- | --- |
 | `guardOrgDashboard(orgSlug)` | Members, or event/series collaborators |
-| `guardOrgRole(orgSlug, minRole)` | Membership at `MEMBER`, `ADMIN` or `OWNER` or above |
+| `guardOrgRole(orgSlug, minRole)` | Membership at `minRole` or above |
 | `guardEventDashboard(orgSlug, eventId)` | The event belongs to the organisation and the viewer may open its dashboard (a `JUDGE`-only grant counts) |
 | `guardEventPermission(orgSlug, eventId, permission)` | Organisation `OWNER`/`ADMIN`, or that exact `EventPermission` grant |
 | `guardSeriesDashboard(orgSlug, seriesId)` | Same as event dashboard, for a series |
