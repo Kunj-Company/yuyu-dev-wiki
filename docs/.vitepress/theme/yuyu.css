@@ -173,7 +173,9 @@
 .VPFeature { border: 1px solid var(--yy-border); background: var(--yy-bg-canvas); transition: background-color 0.18s; }
 .VPFeature:hover { background: var(--yy-bg-subtle); border-color: var(--yy-border-strong); }
 .VPFeature .title { font-family: var(--yy-font-display); font-weight: 700; letter-spacing: -0.01em; }
-.vp-doc table { display: table; overflow: hidden; border-collapse: separate; border-spacing: 0; border: 1px solid var(--yy-border); }
+/* display:block + overflow-x:auto keeps wide tables inside the column and scrollable sideways (as VitePress intends)
+   instead of spilling under the page outline. The border and radius stay on the scrolling box. */
+.vp-doc table { display: block; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; border-collapse: separate; border-spacing: 0; border: 1px solid var(--yy-border); }
 .vp-doc th { background: var(--yy-bg-subtle); font-size: 13px; color: var(--yy-text-muted); text-transform: none; }
 .vp-doc tr { background: transparent; border-top: 0; }
 .vp-doc tr:nth-child(2n) { background: var(--yy-bg-subtle); }
