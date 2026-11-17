@@ -1,6 +1,13 @@
-# Cloudflare Pages settings for the Yuyu developer wiki.
-# Used by `npm run deploy:cloudflare` (wrangler pages deploy). With Git integration, set the build
-# command and output directory in the Cloudflare dashboard instead. See the README, "Hosting".
+# Cloudflare settings for the Yuyu developer wiki, deployed as static assets with `wrangler deploy`.
+# Cloudflare builds the site (`npm run build`) and then runs `npx wrangler deploy`, which uploads the
+# folder below. See the README, "Hosting".
+#
+# `name` must match the project name in the Cloudflare dashboard.
 name = "yuyu-dev-wiki"
 compatibility_date = "2026-11-01"
-pages_build_output_dir = "docs/.vitepress/dist"
+
+[assets]
+directory = "./docs/.vitepress/dist"
+# Serve VitePress's 404.html (with a 404 status) for unknown URLs. Clean URLs such as /roadmap are served
+# from roadmap.html by the default handling, and docs/public/_headers is applied as it is for Pages.
+not_found_handling = "404-page"

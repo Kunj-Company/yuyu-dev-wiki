@@ -88,25 +88,25 @@ The index is fetched in the background once the page has loaded, so the first se
 
 | Host | Build command | Output directory |
 | --- | --- | --- |
-| Cloudflare Pages (used for this wiki) | `npm run build` | `docs/.vitepress/dist` (see below) |
+| Cloudflare (used for this wiki) | `npm run build` | `docs/.vitepress/dist` (see below) |
 | Vercel / Netlify | `npm run build` | `docs/.vitepress/dist` |
 | Nginx / any web server | `npm run build`, then copy `dist/` to the web root | — |
 
-**Cloudflare Pages:** the site is plain static files, so no Functions or adapter are needed.
+**Cloudflare:** the site is plain static files, so no Functions or adapter are needed. `wrangler.toml` tells Wrangler to upload `docs/.vitepress/dist` as static assets, and to serve `404.html` for unknown URLs.
 
-- *With Git integration* (recommended): in the Cloudflare dashboard go to **Workers & Pages → Create → Pages → Connect to Git**, pick this repository, and use these settings:
+- *With Git integration* (Workers Builds): in the Cloudflare dashboard go to **Workers & Pages → Create → Import a repository**, pick this repository, and use these settings:
 
   | Setting | Value |
   | --- | --- |
-  | Framework preset | None |
   | Build command | `npm run build` |
-  | Build output directory | `docs/.vitepress/dist` |
+  | Deploy command | `npx wrangler deploy` (the default) |
   | Root directory | leave empty |
-  | Environment variable | `NODE_VERSION` = `22` (Pages also reads `.nvmrc`) |
+  | Project name | `yuyu-dev-wiki`, the `name` in `wrangler.toml` |
+  | Build variable | `NODE_VERSION` = `22` (the build also reads `.nvmrc`) |
 
-  Do not set `VITEPRESS_BASE`: the site is served from the root of a `*.pages.dev` domain or your custom domain. Production deploys come from `main`. Other branches and pull requests get preview URLs.
-- *From your machine:* run `npx wrangler login` once, then `npm run deploy:cloudflare`. It builds the site and uploads it with `wrangler pages deploy`, using `wrangler.toml` (project `yuyu-dev-wiki`, output `docs/.vitepress/dist`). Wrangler creates the project on the first deploy if it does not exist.
-- `docs/public/_headers` is copied into the build and sets security headers and long-lived caching for the hashed files in `/assets/`. VitePress writes `404.html`, which Pages uses for unknown URLs.
+  Do not set `VITEPRESS_BASE`: the site is served from the root of a `*.workers.dev` domain or your custom domain. Production deploys come from `main`. Do not use `wrangler pages deploy` here: this configuration is not a Pages project, and Wrangler refuses to deploy a Pages-style config with `wrangler deploy`.
+- *From your machine:* run `npx wrangler login` once, then `npm run deploy:cloudflare`. It builds the site and runs `wrangler deploy`.
+- `docs/public/_headers` is copied into the build and sets security headers and long-lived caching for the hashed files in `/assets/`. Wrangler applies it with the other static assets.
 - This repository has no deploy workflow: Cloudflare builds and deploys from Git itself. To host on GitHub Pages instead, add a workflow that runs `npm ci` and `npm run build` with `VITEPRESS_BASE=/<repo-name>/` and publishes `docs/.vitepress/dist`. The earlier version is in the git history (`git show e2985c7:.github/workflows/deploy.yml`).
 
 If you build by hand for a sub-path, such as `https://user.github.io/yuyu-dev-wiki/`, set `VITEPRESS_BASE` to that path, with leading and trailing slashes.

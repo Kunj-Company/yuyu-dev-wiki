@@ -17,7 +17,7 @@
     "agent-kit": "node scripts/build-tokens.mjs && node scripts/gen-agent-kit.mjs",
     "search-index": "node scripts/build-search-index.mjs",
     "contributors": "node scripts/update-contributors.mjs",
-    "deploy:cloudflare": "npm run build && npx wrangler pages deploy"
+    "deploy:cloudflare": "npm run build && npx wrangler deploy"
   },
   "devDependencies": {
     "@fontsource-variable/bricolage-grotesque": "5.3.0",

@@ -4,11 +4,12 @@ Decisions made while building and maintaining the Yuyu developer wiki, newest fi
 
 ## 2026-11-17
 
-### Deploy on Cloudflare Pages from Git, and remove the GitHub Pages workflow
+### Deploy on Cloudflare as static assets from Git, and remove the GitHub Pages workflow
 
-- **Decision:** The wiki is hosted on Cloudflare Pages, built by Cloudflare from Git (build command `npm run build`, output `docs/.vitepress/dist`, `NODE_VERSION=22`, no `VITEPRESS_BASE`). `wrangler.toml` and `npm run deploy:cloudflare` cover manual deploys. `docs/public/_headers` sets security headers and immutable caching for `/assets/*` only. `.github/workflows/deploy.yml` was deleted.
+- **Decision:** The wiki is hosted on Cloudflare, built from Git by Cloudflare's Workers Builds (build command `npm run build`, deploy command `npx wrangler deploy`, `NODE_VERSION=22`, no `VITEPRESS_BASE`). `wrangler.toml` uses the Workers static-assets format (`[assets] directory = "./docs/.vitepress/dist"`, `not_found_handling = "404-page"`), and `npm run deploy:cloudflare` does the same by hand. `docs/public/_headers` sets security headers and immutable caching for `/assets/*` only. `.github/workflows/deploy.yml` was deleted.
 - **Why:** The GitHub Pages workflow failed on every push because Pages was never enabled on the repository, and Cloudflare was the chosen host. The headers file is kept to two rules because mid-path wildcards in `_headers` were not verified.
-- **Not done:** The repository is not yet connected in the Cloudflare dashboard, and nothing has been deployed. No Cloudflare deploy workflow was added, as it would need secrets. The old workflow is in git history (`git show e2985c7:.github/workflows/deploy.yml`).
+- **Correction:** The first `wrangler.toml` used classic Pages settings (`pages_build_output_dir`). The first Cloudflare build then failed at its deploy step: `wrangler deploy` refuses a Pages-style config and reported a missing entry point. The config was changed to the assets format and checked with `wrangler deploy --dry-run` on the same Wrangler version (4.164.0), which read all 462 files. Whether the live deploy and the `_headers` file work on Cloudflare has not yet been seen.
+- **Not done:** No Cloudflare deploy workflow was added, as it would need secrets. The old workflow is in git history (`git show e2985c7:.github/workflows/deploy.yml`).
 
 ### The home page version card never reads the git remote
 
@@ -52,7 +53,7 @@ Decisions made while building and maintaining the Yuyu developer wiki, newest fi
 
 ## Open items
 
-- Connect the repository to Cloudflare Pages, then check the live site, including the nav dropdowns and table scrolling in a browser.
+- Check the live Cloudflare site after the next build, including that `_headers` is applied, including the nav dropdowns and table scrolling in a browser.
 - Decide whether to remove `/features/feature-list` ("What Yuyu can do"). The request for an upcoming-features board suggested the feature list may not have been wanted, so it was kept pending an answer.
 - The iOS repository is private. Offering an iOS build means making it public or publishing a release.
 - If a third contributor is expected, find out who it is. They appear on the page only once they have commits.
