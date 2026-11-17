@@ -1,0 +1,61 @@
+{
+  "updated": "2026-11-17",
+  "repos": [
+    {
+      "repo": "twilighty-abhi/yuyu",
+      "label": "Yuyu"
+    },
+    {
+      "repo": "Kunj-Company/yuyu-android",
+      "label": "Android app"
+    },
+    {
+      "repo": "Kunj-Company/yuyu-ios",
+      "label": "iOS app"
+    },
+    {
+      "repo": "Kunj-Company/yuyu-dev-wiki",
+      "label": "This wiki"
+    }
+  ],
+  "contributors": [
+    {
+      "login": "twilighty-abhi",
+      "url": "https://github.com/twilighty-abhi",
+      "avatar": "https://avatars.githubusercontent.com/u/79564956?v=4",
+      "repos": [
+        {
+          "repo": "Yuyu",
+          "commits": 667
+        },
+        {
+          "repo": "Android app",
+          "commits": 93
+        },
+        {
+          "repo": "iOS app",
+          "commits": 14
+        },
+        {
+          "repo": "This wiki",
+          "commits": 13
+        }
+      ],
+      "name": "Abhiram N J",
+      "total": 787
+    },
+    {
+      "login": "praveen902012",
+      "url": "https://github.com/praveen902012",
+      "avatar": "https://avatars.githubusercontent.com/u/49301108?v=4",
+      "repos": [
+        {
+          "repo": "Yuyu",
+          "commits": 1
+        }
+      ],
+      "name": "neuron",
+      "total": 1
+    }
+  ]
+}

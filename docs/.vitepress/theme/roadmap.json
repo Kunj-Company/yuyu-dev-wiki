@@ -1,0 +1,37 @@
+{
+  "source": "https://github.com/twilighty-abhi/yuyu/blob/main/docs/FUTURE_PHASES.md",
+  "items": [
+    { "title": "Security scanning and a disclosure policy", "detail": "Automated SAST, secret scanning and container scanning, plus a documented vulnerability-disclosure policy.", "area": "Security", "priority": "high" },
+    { "title": "Wider automated test coverage", "detail": "Cover every Server Action, role boundary, cross-tenant access attempt and failure or rollback path.", "area": "Security", "priority": "high" },
+    { "title": "Self-service account deletion", "detail": "Let people delete their account and correct their data beyond profile name and photo.", "area": "Privacy", "priority": "high" },
+    { "title": "Scheduled reminders and unsubscribe management", "detail": "Scheduled reminders, delivery preferences and unsubscribe management for attendee emails.", "area": "Communication", "priority": "high" },
+    { "title": "Emails for team invitations and join requests", "detail": "Today these appear only on the team and ticket pages, with no email.", "area": "Communication", "priority": "high" },
+
+    { "title": "Independent penetration test", "detail": "A pen test and threat-model review before handling sensitive or regulated data.", "area": "Security", "priority": "medium" },
+    { "title": "One-time inbox verification for certificates", "detail": "Replace email-knowledge eligibility when certificates carry value or personal data.", "area": "Security", "priority": "medium" },
+    { "title": "Step-up sign-in for destructive actions", "detail": "Optional extra authentication for especially destructive organiser and super-admin operations.", "area": "Security", "priority": "medium" },
+    { "title": "Audited organiser exports", "detail": "Record the purpose and approval for organiser data exports.", "area": "Privacy", "priority": "medium" },
+    { "title": "Calendar feeds and calendar sync", "detail": "Calendar feeds and synchronisation with external calendars.", "area": "Product", "priority": "medium" },
+    { "title": "Import and export for events and rosters", "detail": "Tools to import and export events and attendee rosters.", "area": "Product", "priority": "medium" },
+    { "title": "Team registration for recurring series", "detail": "Today series stay individual, and their validators refuse team settings.", "area": "Product", "priority": "medium" },
+    { "title": "Attendance confirmation for series occurrences", "detail": "Needs an instance-scoped check, a per-occurrence Emails card and per-occurrence counts.", "area": "Product", "priority": "medium" },
+    { "title": "Hackathon events in webhooks", "detail": "New event types such as submission.submitted, submission.withdrawn and results.published, with minimal payloads.", "area": "Integrations", "priority": "medium" },
+    { "title": "Team actions in the mobile API", "detail": "Create, join and manage a team and looking for a team, plus team rosters in the machine API behind a separate credential.", "area": "Integrations", "priority": "medium" },
+    { "title": "Submissions and judging in the mobile API", "detail": "Entrant submissions and judging management, with published results in the machine API behind a separate credential.", "area": "Integrations", "priority": "medium" },
+    { "title": "Crew in the mobile and machine APIs", "detail": "The crew list, food summary and crew flag. Today crew tickets show up as ordinary confirmed registrations.", "area": "Integrations", "priority": "medium" },
+    { "title": "Attendance confirmation in the mobile API", "detail": "Guest DTO field, People filter, send, remind and share-link actions, and the check-in desk badge.", "area": "Integrations", "priority": "medium" },
+    { "title": "Machine API for concrete consumers", "detail": "Series and instances, RSVP workflow data, scoped contact data, privacy-preserving feedback reads and narrow idempotent writes.", "area": "Integrations", "priority": "medium" },
+    { "title": "Separate worker processes", "detail": "Replace the in-process outbox worker that each application instance runs.", "area": "Scale", "priority": "medium" },
+    { "title": "Load and soak testing", "detail": "Test with documented capacity targets.", "area": "Scale", "priority": "medium" },
+    { "title": "Automated restore verification", "detail": "Automated restore checks and disaster-recovery exercises.", "area": "Scale", "priority": "medium" },
+
+    { "title": "Tenant retention policies", "detail": "Configurable retention for registrations, feedback and audit history.", "area": "Privacy", "priority": "low" },
+    { "title": "Consent and policy-version records", "detail": "Only where legally required.", "area": "Privacy", "priority": "low" },
+    { "title": "Cross-event and organisation analytics", "detail": "Analytics with privacy-preserving aggregation.", "area": "Product", "priority": "low" },
+    { "title": "Custom domains and organisation themes", "detail": "Organisation logos and per-event accent colours already exist.", "area": "Product", "priority": "low" },
+    { "title": "Custom roles and per-action permissions", "detail": "More granular roles than the current set.", "area": "Product", "priority": "low" },
+    { "title": "Automation for attendance confirmation", "detail": "For example a suggested send time, and only if organisers ask for it. It is deliberately manual today.", "area": "Product", "priority": "low" },
+    { "title": "Design the remaining screens", "detail": "Create series flow, page content editor, feedback form builder and invites are not yet designed.", "area": "Design", "priority": "low" },
+    { "title": "SLOs and multi-region planning", "detail": "Queue-depth, latency, object-store and email-delivery SLOs, and multi-region or read-replica planning if traffic needs it.", "area": "Scale", "priority": "low" }
+  ]
+}

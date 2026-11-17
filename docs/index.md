@@ -23,8 +23,8 @@ features:
     details: New here? Start with what Yuyu is and how to try it on your own computer.
     link: /start/overview
   - title: Features
-    details: A tour of what Yuyu can do, from event pages and registration to check-in and certificates.
-    link: /features/events-and-websites
+    details: The full list of what Yuyu can do, from event pages and registration to check-in and certificates.
+    link: /features/feature-list
   - title: Set it up and run it
     details: Put Yuyu online for your community and keep it running smoothly.
     link: /deploy/overview
@@ -60,7 +60,10 @@ Yuyu is built for free events only. It has no ticket sales, no ads and no tracki
 | I want to… | Go to |
 | --- | --- |
 | Understand what Yuyu is | [What is Yuyu?](/start/overview) |
-| See everything it can do | [Features](/features/events-and-websites) |
+| See everything it can do | [What Yuyu can do](/features/feature-list) |
+| See what changed in each release | [Changelog](/changelog) |
+| See what is coming next | [Upcoming features](/roadmap) |
+| Try the Android or iOS app (alpha) | [Download the apps](/build/download-apps) |
 | Put it online for my community | [Set it up](/deploy/overview) |
 | Make it look like my brand | [Fork and customise](/build/fork-and-customise) |
 | Get the logos, colours and brand files | [Brand assets and downloads](/design/brand-assets) |

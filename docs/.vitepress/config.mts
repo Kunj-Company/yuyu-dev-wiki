@@ -64,6 +64,7 @@ const architecture: Item[] = [
 ];
 
 const features: Item[] = [
+  ["What Yuyu can do", "/features/feature-list"],
   ["Events & websites", "/features/events-and-websites"],
   ["Registration & RSVP", "/features/registration-and-rsvp"],
   ["Tickets & check-in", "/features/tickets-and-check-in"],
@@ -115,6 +116,7 @@ const build: Item[] = [
   ["Integrate with APIs & webhooks", "/build/integrations"],
   ["Build a client app", "/build/client-apps"],
   ["Android & iOS apps", "/build/mobile-apps"],
+  ["Download the apps (alpha)", "/build/download-apps"],
   ["Tutorial: add a feature end to end", "/build/feature-tutorial"],
   ["Contributing upstream", "/build/contributing"],
 ];
@@ -166,12 +168,32 @@ export default withMermaid(
       outline: { level: [2, 3], label: "On this page" },
       nav: [
         { text: "Get started", link: "/start/overview", activeMatch: "^/start/" },
-        { text: "Architecture", link: "/architecture/overview", activeMatch: "^/architecture/" },
-        { text: "Features", link: "/features/events-and-websites", activeMatch: "^/features/" },
         {
-          text: "APIs",
-          activeMatch: "^/api/",
-          items: apis.map(([text, link]) => ({ text, link })),
+          text: "Product",
+          activeMatch: "^/(features|changelog|roadmap|contributors)",
+          items: [
+            { text: "What Yuyu can do", link: "/features/feature-list" },
+            { text: "Feature modules", link: "/features/events-and-websites" },
+            { text: "Download the apps (alpha)", link: "/build/download-apps" },
+            { text: "Upcoming features", link: "/roadmap" },
+            { text: "Changelog", link: "/changelog" },
+            { text: "Current contributors", link: "/contributors" },
+          ],
+        },
+        {
+          text: "Build",
+          activeMatch: "^/(architecture|api|build|guides)/",
+          items: [
+            { text: "Understand", items: [{ text: "Architecture", link: "/architecture/overview" }] },
+            { text: "Integrate", items: apis.map(([text, link]) => ({ text, link })) },
+            {
+              text: "Extend",
+              items: [
+                { text: "Build on Yuyu", link: "/build/overview" },
+                { text: "How-to guides", link: "/guides/add-a-server-action" },
+              ],
+            },
+          ],
         },
         {
           text: "Design",
@@ -181,14 +203,10 @@ export default withMermaid(
             { text: "Component library", link: "/library/index.html", target: "_self" },
           ],
         },
-        { text: "Deploy", link: "/deploy/overview", activeMatch: "^/deploy/" },
         {
-          text: "Build",
-          activeMatch: "^/(build|guides)/",
-          items: [
-            { text: "Build on Yuyu", link: "/build/overview" },
-            { text: "How-to guides", link: "/guides/add-a-server-action" },
-          ],
+          text: "Deploy",
+          activeMatch: "^/deploy/",
+          items: deploy.map(([text, link]) => ({ text, link })),
         },
         { text: "Reference", link: "/reference/testing", activeMatch: "^/reference/" },
       ],
@@ -202,6 +220,11 @@ export default withMermaid(
         group("Deploy & operate", deploy),
         group("Build on Yuyu", build),
         group("Reference", reference),
+        group("Changes & roadmap", [
+          ["Changelog", "/changelog"],
+          ["Upcoming features", "/roadmap"],
+          ["Current contributors", "/contributors"],
+        ]),
       ],
       socialLinks: [{ icon: "github", link: REPO }],
       docFooter: { prev: "Previous", next: "Next" },

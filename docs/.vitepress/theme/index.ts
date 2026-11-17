@@ -7,6 +7,8 @@ import "@fontsource/jetbrains-mono/400.css";
 import "@fontsource/jetbrains-mono/500.css";
 import "./yuyu.css";
 import BuildInfo from "./BuildInfo.vue";
+import RoadmapBoard from "./RoadmapBoard.vue";
+import ContributorsList from "./ContributorsList.vue";
 import { initSearch } from "../../../search/palette";
 
 // The search trigger. The shared palette finds any [data-yy-search] element and opens on click.
@@ -27,6 +29,8 @@ const theme: Theme = {
     }),
   enhanceApp(ctx) {
     DefaultTheme.enhanceApp?.(ctx);
+    ctx.app.component("RoadmapBoard", RoadmapBoard);
+    ctx.app.component("ContributorsList", ContributorsList);
     if (typeof window === "undefined") return;
 
     // The library is a separate app served as static files, not a VitePress page, so links into it must load

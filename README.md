@@ -19,7 +19,10 @@ npm run preview   # serve the built site at http://localhost:4173
 
 ```text
 docs/
-├── index.md                 Home page
+├── index.md                 Home page, with a card showing the last commit and the Yuyu commit verified against
+├── changelog.md             Yuyu release notes for developers, and changes to this wiki
+├── roadmap.md               Upcoming features as a kanban board (data: .vitepress/theme/roadmap.json)
+├── contributors.md          Current contributors (data: .vitepress/theme/contributors.json)
 ├── start/                   Get started: overview, local setup, workflow, codebase tour
 ├── architecture/            Request flow, mutation cores, data model, auth, permissions, jobs, realtime, frontend
 ├── features/                One page per product module: key files, flows, invariants, changes, tests
@@ -27,7 +30,7 @@ docs/
 ├── guides/                  Step-by-step recipes for common changes
 ├── design/                  Design system: principles, tokens, typography, components, brand, patterns, accessibility
 ├── deploy/                  Deploy and operate: Docker, Helm, reverse proxy, staging, CI/CD, checklist, runbook
-├── build/                   Build on Yuyu: fork, integrate, client apps, mobile apps, feature tutorial, contributing
+├── build/                   Build on Yuyu: fork, integrate, client apps, mobile apps, alpha app downloads, feature tutorial, contributing
 ├── reference/               Testing, security checklist, deployment, configuration, scripts, troubleshooting, glossary
 ├── public/logo.svg          Logo
 └── .vitepress/config.mts    Site config: nav, sidebar, search, Mermaid, maths
@@ -37,7 +40,9 @@ docs/
 
 - To add a page, create `docs/<section>/<slug>.md`. Then add it to the matching list at the top of `docs/.vitepress/config.mts`.
 - Link between pages with absolute paths and no extension, for example `[Mutation cores](/architecture/mutation-cores)`. `npm run build` fails on a dead link (except `/library`, which `ignoreDeadLinks` excludes).
-- Every claim must match the Yuyu source. The wiki was verified against commit `b223291`. When you re-verify against a newer commit, update the commit in the "About these docs" note in `docs/start/codebase-tour.md`, and re-run `npm run library:sync`.
+- Every claim must match the Yuyu source. The wiki was verified against commit `b223291`. When you re-verify against a newer commit, update `SOURCE_COMMIT` in `docs/.vitepress/config.mts` (it feeds the home page version card), update the commit in the "About these docs" note in `docs/start/codebase-tour.md`, and re-run `npm run library:sync`.
+- Contributors: run `npm run contributors` to refresh `contributors.json` from GitHub. It needs `GITHUB_TOKEN` or a `gh auth login` session, because some repositories are private.
+- Roadmap: move a card between columns, or remove it once the feature ships, by editing `docs/.vitepress/theme/roadmap.json`.
 - Mermaid is strict about syntax, and a parse error shows an error box instead of the diagram. In sequence diagrams, avoid `;` and `#` in message text. In flowcharts, quote labels that contain brackets or punctuation (`A["label (x)"]`).
 - VitePress treats `{{ ... }}` as Vue syntax. Wrap it in inline code or a code fence.
 

@@ -2,6 +2,10 @@
 
 Yuyu's two mobile clients live in their own repositories, `yuyu-android` and `yuyu-ios`, next to the server repository. Both are companion apps for a self-hosted server. They do the phone-first jobs (signing in, tickets, organiser day-of work) through the [mobile API](/api/mobile-api) and leave everything else to the website. This page describes how each is organised, how to build and test it, how to point it at an instance, and where the two disagree with the server repository.
 
+::: warning Both apps are alpha
+They are not stable, and you use them at your own risk. To try a prebuilt Android app, or to see the iOS status, go to [Download the mobile apps](/build/download-apps).
+:::
+
 Facts here come from each repository's `README.md`, `AGENTS.md`, `CLAUDE.md`, `docs/` and build files, read at their current `main`. To write your own client instead, see [Build a client app](/build/client-apps).
 
 ## What the apps cover
