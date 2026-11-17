@@ -3,7 +3,7 @@
 # folder below. See the README, "Hosting".
 #
 # `name` must match the project name in the Cloudflare dashboard.
-name = "yuyu-dev-wiki"
+name = "yuyu-wiki"
 compatibility_date = "2026-11-01"
 
 [assets]

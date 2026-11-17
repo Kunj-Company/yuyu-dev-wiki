@@ -101,7 +101,7 @@ The index is fetched in the background once the page has loaded, so the first se
   | Build command | `npm run build` |
   | Deploy command | `npx wrangler deploy` (the default) |
   | Root directory | leave empty |
-  | Project name | `yuyu-dev-wiki`, the `name` in `wrangler.toml` |
+  | Project name | `yuyu-wiki`, the `name` in `wrangler.toml` |
   | Build variable | `NODE_VERSION` = `22` (the build also reads `.nvmrc`) |
 
   Do not set `VITEPRESS_BASE`: the site is served from the root of a `*.workers.dev` domain or your custom domain. Production deploys come from `main`. Do not use `wrangler pages deploy` here: this configuration is not a Pages project, and Wrangler refuses to deploy a Pages-style config with `wrangler deploy`.
