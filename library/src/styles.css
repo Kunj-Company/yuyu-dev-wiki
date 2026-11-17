@@ -1,0 +1,32 @@
+@import "./vendor/app/globals.css";
+
+html { scroll-padding-top: 5rem; }
+
+/*
+ * Gallery only: replay the app's dot-face hover animation without a pointer, using the very
+ * same keyframes and timings as `.yy-face` in vendor/app/globals.css. Toggle `.yy-face-play`
+ * on the face to play it.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .yy-face-play {
+    transform: translateY(-4px) rotate(-4deg);
+  }
+  .yy-face-play .yy-face-dot {
+    animation: yy-face-ripple 560ms cubic-bezier(0.45, 0, 0.2, 1) var(--yy-face-delay, 0ms) both;
+  }
+  .yy-face-play .yy-face-eye {
+    animation:
+      yy-face-ripple 560ms cubic-bezier(0.45, 0, 0.2, 1) var(--yy-face-delay, 0ms) both,
+      yy-face-blink 900ms ease-in-out both;
+  }
+}
+
+/* Highlight for the element a search result points at. */
+@keyframes yy-search-flash {
+  0% { background-color: var(--yy-highlight-peach); box-shadow: 0 0 0 6px var(--yy-highlight-peach); }
+  100% { background-color: transparent; box-shadow: 0 0 0 6px transparent; }
+}
+.yy-search-flash { animation: yy-search-flash 2200ms ease-out 1; border-radius: 12px; }
+@media (prefers-reduced-motion: reduce) {
+  .yy-search-flash { animation: none; background-color: var(--yy-highlight-peach); }
+}

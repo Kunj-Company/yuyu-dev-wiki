@@ -1,12 +1,42 @@
 import { defineConfig } from "vitepress";
 import { withMermaid } from "vitepress-plugin-mermaid";
+import { execFileSync } from "node:child_process";
 
-// Source repository the wiki documents, and the commit it was verified against.
+// Source repository these docs describe.
 const REPO = "https://github.com/twilighty-abhi/yuyu";
-const SOURCE_COMMIT = "b223291";
 
 // Set VITEPRESS_BASE=/repo-name/ when hosting under a sub-path (e.g. GitHub Pages).
 const BASE = process.env.VITEPRESS_BASE || "/";
+
+// The Yuyu commit these docs were last verified against. Update it whenever the wiki is re-verified.
+const SOURCE_COMMIT = "b223291f04a46d9adad5800523a00e33d7ede930";
+
+// Git details of this wiki, read once at build time (dev server: at start-up) and shown on the home page.
+const git = (...args: string[]) => {
+  try {
+    return execFileSync("git", args, { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).trim();
+  } catch {
+    return "";
+  }
+};
+const [hash = "", shortHash = "", committedAt = "", author = "", subject = ""] = git("log", "-1", "--format=%H%x1f%h%x1f%cI%x1f%an%x1f%s").split("\x1f");
+const wikiRepo = git("remote", "get-url", "origin")
+  .replace(/^git@github\.com:/, "https://github.com/")
+  .replace(/\.git$/, "");
+const BUILD_INFO = {
+  wiki: {
+    hash,
+    shortHash,
+    committedAt,
+    author,
+    subject,
+    // A dirty tree means the build includes edits that are not committed yet.
+    dirty: git("status", "--porcelain") !== "",
+    url: wikiRepo.startsWith("https://") ? `${wikiRepo}/commit/${hash}` : "",
+  },
+  source: { hash: SOURCE_COMMIT, shortHash: SOURCE_COMMIT.slice(0, 7), url: `${REPO}/commit/${SOURCE_COMMIT}` },
+  builtAt: new Date().toISOString(),
+};
 
 type Item = [label: string, link: string];
 const group = (text: string, items: Item[], collapsed = false) => ({
@@ -52,6 +82,43 @@ const apis: Item[] = [
   ["Organisation webhooks", "/api/webhooks"],
 ];
 
+const design: Item[] = [
+  ["Design principles & voice", "/design/principles"],
+  ["Design tokens", "/design/tokens"],
+  ["Colour reference", "/design/colour"],
+  ["Typography & layout", "/design/typography-and-layout"],
+  ["Type, spacing & elevation scales", "/design/scales"],
+  ["Components", "/design/components"],
+  ["Brand & dot-sign", "/design/brand"],
+  ["Brand assets & downloads", "/design/brand-assets"],
+  ["Figma file map", "/design/figma"],
+  ["Use with AI agents", "/design/ai-agents"],
+  ["UI patterns", "/design/patterns"],
+  ["Accessibility", "/design/accessibility"],
+  ["Contribute to the design system", "/design/contributing"],
+];
+
+const deploy: Item[] = [
+  ["Choose a deployment path", "/deploy/overview"],
+  ["Docker on a single host", "/deploy/docker"],
+  ["Kubernetes with Helm", "/deploy/kubernetes"],
+  ["Reverse proxy & TLS", "/deploy/reverse-proxy"],
+  ["Staging environment", "/deploy/staging"],
+  ["CI/CD & image publishing", "/deploy/ci-cd"],
+  ["Production readiness checklist", "/deploy/production-checklist"],
+  ["Operations runbook", "/deploy/operations"],
+];
+
+const build: Item[] = [
+  ["Ways to build on Yuyu", "/build/overview"],
+  ["Fork & customise", "/build/fork-and-customise"],
+  ["Integrate with APIs & webhooks", "/build/integrations"],
+  ["Build a client app", "/build/client-apps"],
+  ["Android & iOS apps", "/build/mobile-apps"],
+  ["Tutorial: add a feature end to end", "/build/feature-tutorial"],
+  ["Contributing upstream", "/build/contributing"],
+];
+
 const guides: Item[] = [
   ["Add a Server Action", "/guides/add-a-server-action"],
   ["Change the schema", "/guides/change-the-schema"],
@@ -72,16 +139,21 @@ const reference: Item[] = [
   ["Glossary", "/reference/glossary"],
 ];
 
+
 export default withMermaid(
   defineConfig({
-    title: "Yuyu Developer Wiki",
-    description: "Developer documentation for Yuyu, the self-hosted platform for free events: architecture, code map, APIs and how-to guides.",
+    title: "Yuyu Documentation",
+    description: "Documentation for Yuyu, the self-hosted platform for free events: product overview, architecture, APIs, design system, component library, deployment and building on top of Yuyu.",
     base: BASE,
     cleanUrls: true,
+    // Generated agent-kit files in public/ are static downloads, not pages.
+    srcExclude: ["public/**"],
+    // /library/ is a separate Vite app built into docs/public/library (npm run build:library).
+    ignoreDeadLinks: [/^\/library/],
     lastUpdated: false,
     head: [
       ["link", { rel: "icon", type: "image/svg+xml", href: `${BASE}logo.svg` }],
-      ["meta", { name: "theme-color", content: "#646cff" }],
+      ["meta", { name: "theme-color", content: "#ffb547" }],
     ],
     markdown: {
       math: true,
@@ -89,8 +161,8 @@ export default withMermaid(
     },
     themeConfig: {
       logo: "/logo.svg",
-      siteTitle: "Yuyu Dev Wiki",
-      search: { provider: "local" },
+      siteTitle: "Yuyu Docs",
+      // Search is the shared palette in search/ (docs/.vitepress/theme/index.ts), not VitePress's local search.
       outline: { level: [2, 3], label: "On this page" },
       nav: [
         { text: "Get started", link: "/start/overview", activeMatch: "^/start/" },
@@ -101,7 +173,23 @@ export default withMermaid(
           activeMatch: "^/api/",
           items: apis.map(([text, link]) => ({ text, link })),
         },
-        { text: "Guides", link: "/guides/add-a-server-action", activeMatch: "^/guides/" },
+        {
+          text: "Design",
+          activeMatch: "^/design/",
+          items: [
+            { text: "Design system", link: "/design/principles" },
+            { text: "Component library", link: "/library/index.html", target: "_self" },
+          ],
+        },
+        { text: "Deploy", link: "/deploy/overview", activeMatch: "^/deploy/" },
+        {
+          text: "Build",
+          activeMatch: "^/(build|guides)/",
+          items: [
+            { text: "Build on Yuyu", link: "/build/overview" },
+            { text: "How-to guides", link: "/guides/add-a-server-action" },
+          ],
+        },
         { text: "Reference", link: "/reference/testing", activeMatch: "^/reference/" },
       ],
       sidebar: [
@@ -110,20 +198,33 @@ export default withMermaid(
         group("Feature modules", features),
         group("APIs & integrations", apis),
         group("How-to guides", guides),
+        group("Design system", design),
+        group("Deploy & operate", deploy),
+        group("Build on Yuyu", build),
         group("Reference", reference),
       ],
       socialLinks: [{ icon: "github", link: REPO }],
       docFooter: { prev: "Previous", next: "Next" },
       footer: {
-        message: `Verified against <a href="${REPO}/tree/${SOURCE_COMMIT}">twilighty-abhi/yuyu @ ${SOURCE_COMMIT}</a>. File paths are relative to the repository root.`,
+        message: `Documentation for <a href="${REPO}">Yuyu</a>, the self-hosted platform for free events.`,
       },
     },
     vite: {
+      define: { __BUILD_INFO__: JSON.stringify(BUILD_INFO) },
       build: { chunkSizeWarningLimit: 4000 },
       optimizeDeps: { include: ["mermaid"] },
     },
     mermaid: {
       securityLevel: "strict",
+      themeVariables: {
+        fontFamily: "Figtree Variable, system-ui, sans-serif",
+        primaryColor: "#fff4e5",
+        primaryBorderColor: "#e8930c",
+        primaryTextColor: "#18181b",
+        lineColor: "#5f5e5a",
+        secondaryColor: "#f4f4f2",
+        tertiaryColor: "#fafaf9",
+      },
     },
   }),
 );

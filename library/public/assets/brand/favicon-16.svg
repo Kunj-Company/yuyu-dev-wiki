@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" role="img" aria-label="Yuyu">
+  <title>Yuyu</title>
+  <!-- Pixel-aligned 2px dots; a 2px corner keeps the corner dots inside the tile. -->
+  <rect width="16" height="16" rx="2" fill="#18181B"/>
+  <circle cx="2" cy="2" r="1" fill="#FFB547"/>
+  <circle cx="14" cy="2" r="1" fill="#FFB547"/>
+  <circle cx="5" cy="5" r="1" fill="#FFB547"/>
+  <circle cx="11" cy="5" r="1" fill="#FFB547"/>
+  <circle cx="8" cy="8" r="1" fill="#FFB547"/>
+  <circle cx="8" cy="11" r="1" fill="#FFB547"/>
+  <circle cx="8" cy="14" r="1" fill="#FFFFFF"/>
+</svg>

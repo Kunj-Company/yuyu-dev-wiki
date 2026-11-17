@@ -1,0 +1,534 @@
+{
+ "source": {
+  "file": "Yuyu — Light screens",
+  "url": "https://www.figma.com/design/oVuNh4VRXQ9fIpdnUCoZqt",
+  "pages": [
+   "Design system",
+   "Brand — Dot sign"
+  ],
+  "readOn": "2026-11-17"
+ },
+ "colour": {
+  "light": {
+   "text": "#18181b",
+   "text-muted": "#5f5e5a",
+   "bg-canvas": "#ffffff",
+   "border": "#e7e6e2",
+   "bg-subtle": "#fafaf9",
+   "bg-muted": "#f4f4f2",
+   "bg-emphasis": "#efeeea",
+   "bg-track": "#f0efeb",
+   "border-strong": "#d4d3ce",
+   "text-secondary": "#3f3f46",
+   "text-disabled": "#a1a09a",
+   "primary": "#18181b",
+   "on-primary": "#ffffff",
+   "inverse-surface": "#18181b",
+   "accent": "#c2410c",
+   "on-accent": "#ffffff",
+   "accent-soft": "#faf0ec",
+   "accent-text": "#c2410c",
+   "success-bg": "#dcfce7",
+   "success-fg": "#166534",
+   "success-solid": "#15803d",
+   "warning-bg": "#fef3c7",
+   "warning-fg": "#92400e",
+   "warning-solid": "#f59e0b",
+   "danger-bg": "#fee2e2",
+   "danger-fg": "#b91c1c",
+   "danger-border": "#fca5a5",
+   "danger-solid": "#b91c1c",
+   "brand-mint": "#7ee8c4",
+   "brand-lavender": "#b9aeff",
+   "highlight-mint": "#bdf3df",
+   "highlight-lavender": "#dcd6ff",
+   "highlight-peach": "#fde7c8",
+   "tint-mint": "#e9fbf3",
+   "tint-lavender": "#f1efff",
+   "tint-peach": "#fff4e5"
+  },
+  "dark": {
+   "text": "#f4f4f5",
+   "text-muted": "#a1a1aa",
+   "bg-canvas": "#111113",
+   "border": "#2a2a2e",
+   "bg-subtle": "#18181b",
+   "bg-muted": "#232326",
+   "bg-emphasis": "#2a2a2e",
+   "bg-track": "#2a2a2e",
+   "border-strong": "#3f3f46",
+   "text-secondary": "#d4d4d8",
+   "text-disabled": "#71717a",
+   "primary": "#f4f4f5",
+   "on-primary": "#18181b",
+   "inverse-surface": "#1c1c1f",
+   "accent": "#c2410c",
+   "on-accent": "#ffffff",
+   "accent-soft": "#2a1812",
+   "accent-text": "#fb8a5b",
+   "success-bg": "#13301f",
+   "success-fg": "#86efac",
+   "success-solid": "#15803d",
+   "warning-bg": "#33270b",
+   "warning-fg": "#fcd34d",
+   "warning-solid": "#f59e0b",
+   "danger-bg": "#3a1414",
+   "danger-fg": "#f87171",
+   "danger-border": "#7f1d1d",
+   "danger-solid": "#b91c1c",
+   "brand-mint": "#7ee8c4",
+   "brand-lavender": "#b9aeff",
+   "highlight-mint": "#1f4d3d",
+   "highlight-lavender": "#332e5c",
+   "highlight-peach": "#4a3418",
+   "tint-mint": "#10261e",
+   "tint-lavender": "#1c1a33",
+   "tint-peach": "#2a1f10"
+  }
+ },
+ "accents": [
+  {
+   "name": "Ember",
+   "accent": "#c2410c",
+   "soft": "#faf0ec",
+   "text": "#c2410c"
+  },
+  {
+   "name": "Iris",
+   "accent": "#4b3fa8",
+   "soft": "#f1f0f8",
+   "text": "#4b3fa8"
+  },
+  {
+   "name": "Teal",
+   "accent": "#0f766e",
+   "soft": "#ecf4f3",
+   "text": "#0f766e"
+  },
+  {
+   "name": "Ink",
+   "accent": "#18181b",
+   "soft": "#f4f4f2",
+   "text": "#18181b"
+  }
+ ],
+ "type": [
+  {
+   "name": "Display/XL",
+   "family": "Bricolage Grotesque",
+   "style": "ExtraBold",
+   "size": 76,
+   "weight": 800,
+   "lineHeight": 0.98,
+   "letterSpacingPx": -3.5
+  },
+  {
+   "name": "Display/L",
+   "family": "Bricolage Grotesque",
+   "style": "ExtraBold",
+   "size": 68,
+   "weight": 800,
+   "lineHeight": 0.98,
+   "letterSpacingPx": -3
+  },
+  {
+   "name": "Display/M",
+   "family": "Bricolage Grotesque",
+   "style": "ExtraBold",
+   "size": 54,
+   "weight": 800,
+   "lineHeight": 1,
+   "letterSpacingPx": -3
+  },
+  {
+   "name": "Heading/H1",
+   "family": "Bricolage Grotesque",
+   "style": "ExtraBold",
+   "size": 38,
+   "weight": 800,
+   "lineHeight": 1.1,
+   "letterSpacingPx": -2
+  },
+  {
+   "name": "Heading/H2",
+   "family": "Bricolage Grotesque",
+   "style": "ExtraBold",
+   "size": 30,
+   "weight": 800,
+   "lineHeight": 1.15,
+   "letterSpacingPx": -1
+  },
+  {
+   "name": "Heading/H3",
+   "family": "Bricolage Grotesque",
+   "style": "ExtraBold",
+   "size": 24,
+   "weight": 800,
+   "lineHeight": 1.2,
+   "letterSpacingPx": 0
+  },
+  {
+   "name": "Heading/H4",
+   "family": "Bricolage Grotesque",
+   "style": "ExtraBold",
+   "size": 20,
+   "weight": 800,
+   "lineHeight": 1.25,
+   "letterSpacingPx": 0
+  },
+  {
+   "name": "Text/Body L",
+   "family": "Figtree",
+   "style": "Regular",
+   "size": 19,
+   "weight": 400,
+   "lineHeight": 1.6,
+   "letterSpacingPx": 0
+  },
+  {
+   "name": "Text/Body",
+   "family": "Figtree",
+   "style": "Regular",
+   "size": 16,
+   "weight": 400,
+   "lineHeight": 1.6,
+   "letterSpacingPx": 0
+  },
+  {
+   "name": "Text/Body UI",
+   "family": "Figtree",
+   "style": "Regular",
+   "size": 15,
+   "weight": 400,
+   "lineHeight": 1.5,
+   "letterSpacingPx": 0
+  },
+  {
+   "name": "Text/Body UI Strong",
+   "family": "Figtree",
+   "style": "SemiBold",
+   "size": 15,
+   "weight": 600,
+   "lineHeight": 1.5,
+   "letterSpacingPx": 0
+  },
+  {
+   "name": "Text/Label",
+   "family": "Figtree",
+   "style": "SemiBold",
+   "size": 14,
+   "weight": 600,
+   "lineHeight": 1.4,
+   "letterSpacingPx": 0
+  },
+  {
+   "name": "Text/Button",
+   "family": "Figtree",
+   "style": "Bold",
+   "size": 15,
+   "weight": 700,
+   "lineHeight": 1.3,
+   "letterSpacingPx": 0
+  },
+  {
+   "name": "Text/Caption",
+   "family": "Figtree",
+   "style": "Regular",
+   "size": 13,
+   "weight": 400,
+   "lineHeight": 1.45,
+   "letterSpacingPx": 0
+  },
+  {
+   "name": "Text/Overline",
+   "family": "Figtree",
+   "style": "Bold",
+   "size": 13,
+   "weight": 700,
+   "lineHeight": 1.3,
+   "letterSpacingPx": 6
+  },
+  {
+   "name": "Code/Mono",
+   "family": "JetBrains Mono",
+   "style": "Regular",
+   "size": 13,
+   "weight": 400,
+   "lineHeight": 1.5,
+   "letterSpacingPx": 0
+  }
+ ],
+ "spacing": {
+  "space-1": 4,
+  "space-2": 8,
+  "space-3": 12,
+  "space-4": 16,
+  "space-5": 20,
+  "space-6": 24,
+  "space-8": 32,
+  "space-10": 40,
+  "space-12": 48,
+  "space-16": 64,
+  "space-20": 80
+ },
+ "radius": {
+  "radius-sm": 8,
+  "radius-md": 12,
+  "radius-lg": 16,
+  "radius-xl": 20,
+  "radius-2xl": 24,
+  "radius-full": 999
+ },
+ "shadows": [
+  {
+   "name": "Shadow/Raised",
+   "layers": [
+    {
+     "color": "#18181B0A",
+     "y": 1,
+     "blur": 2
+    },
+    {
+     "color": "#18181B0F",
+     "y": 12,
+     "blur": 32
+    }
+   ]
+  },
+  {
+   "name": "Shadow/Float",
+   "layers": [
+    {
+     "color": "#18181B0A",
+     "y": 1,
+     "blur": 2
+    },
+    {
+     "color": "#18181B14",
+     "y": 24,
+     "blur": 48
+    }
+   ]
+  },
+  {
+   "name": "Shadow/Ticket",
+   "layers": [
+    {
+     "color": "#18181B0F",
+     "y": 1,
+     "blur": 2
+    },
+    {
+     "color": "#18181B1A",
+     "y": 16,
+     "blur": 40
+    }
+   ]
+  }
+ ],
+ "components": [
+  {
+   "name": "Button",
+   "variants": [
+    "Style=Primary|Accent|Secondary|Quiet|Danger|Danger quiet|Inverse|Disabled",
+    "Size=Small|Medium|Large"
+   ],
+   "count": 24,
+   "code": "button"
+  },
+  {
+   "name": "Chip",
+   "variants": [
+    "Kind=Success|Warning|Danger|Accent|Neutral|Filter off|Filter on"
+   ],
+   "count": 7,
+   "code": "chip"
+  },
+  {
+   "name": "Date block",
+   "variants": [
+    "State=Event|Draft"
+   ],
+   "count": 2,
+   "code": "date-block"
+  },
+  {
+   "name": "Avatar",
+   "variants": [
+    "Kind=Person|User|Organisation"
+   ],
+   "count": 3,
+   "code": "avatar"
+  },
+  {
+   "name": "Field",
+   "variants": [
+    "State=Default|Error|Read-only"
+   ],
+   "count": 3,
+   "code": "field"
+  },
+  {
+   "name": "Stat tile",
+   "variants": [],
+   "count": 1,
+   "code": "stat-tile"
+  },
+  {
+   "name": "Callout",
+   "variants": [
+    "Kind=Warning|Empty state|Danger zone"
+   ],
+   "count": 3,
+   "code": "callout"
+  },
+  {
+   "name": "Tab",
+   "variants": [
+    "Selected=True|False"
+   ],
+   "count": 2,
+   "code": "tabs"
+  },
+  {
+   "name": "Segmented control",
+   "variants": [],
+   "count": 1,
+   "code": "segmented-control"
+  },
+  {
+   "name": "Sidebar item",
+   "variants": [
+    "Selected=True|False"
+   ],
+   "count": 2,
+   "code": "app-shell"
+  },
+  {
+   "name": "Event row",
+   "variants": [
+    "Status=Published|Draft"
+   ],
+   "count": 2,
+   "code": null
+  },
+  {
+   "name": "Registration card",
+   "variants": [
+    "State=Open|Registered"
+   ],
+   "count": 2,
+   "code": null
+  },
+  {
+   "name": "Ticket",
+   "variants": [],
+   "count": 1,
+   "code": null
+  },
+  {
+   "name": "Check-in result",
+   "variants": [
+    "State=Checked in|Waitlist|Invalid"
+   ],
+   "count": 3,
+   "code": null
+  }
+ ],
+ "brand": {
+  "marks": [
+   "Full grid",
+   "Bright only",
+   "On marigold",
+   "Mono"
+  ],
+  "lockups": [
+   "Horizontal",
+   "Stacked",
+   "Tagline"
+  ],
+  "appIcons": [
+   "Ink",
+   "Light",
+   "Marigold"
+  ],
+  "faces": [
+   "Happy",
+   "Cheering",
+   "Wink",
+   "Love",
+   "Done",
+   "Waiting",
+   "Surprised",
+   "Thinking",
+   "Sleepy",
+   "Sad"
+  ],
+  "icons": [
+   "Date",
+   "Venue",
+   "Guests",
+   "Time",
+   "Speaker",
+   "Check-in",
+   "Feedback",
+   "Certificate",
+   "Reminder",
+   "Done",
+   "Page",
+   "Lock",
+   "Code"
+  ],
+  "colours": [
+   {
+    "name": "Marigold",
+    "hex": "#FFB547",
+    "use": "The bright dots"
+   },
+   {
+    "name": "Deep marigold",
+    "hex": "#E8930C",
+    "use": "Dots under 32px on white"
+   },
+   {
+    "name": "Ink",
+    "hex": "#18181B",
+    "use": "Base dot, wordmark, text"
+   },
+   {
+    "name": "Soft dot",
+    "hex": "#E7E6E2",
+    "use": "Unlit dots on light"
+   },
+   {
+    "name": "Soft dot, dark",
+    "hex": "#2A2A2E",
+    "use": "Unlit dots on dark"
+   }
+  ],
+  "rules": {
+   "Construction": [
+    "5 × 5 grid of perfect circles",
+    "Gap between dots = ¼ of a dot",
+    "Six marigold dots draw the Y",
+    "One ink dot at the base: the host"
+   ],
+   "Space and size": [
+    "Clear space: one dot-step on every side",
+    "48px and up: full grid with soft dots",
+    "Under 48px: bright dots only",
+    "Never smaller than 16px"
+   ],
+   "Colours": [
+    "Marigold is for dots and fills, never text: it fails contrast on white."
+   ],
+   "Don't": [
+    "Use square or rounded-square dots",
+    "Rotate or skew the mark",
+    "Recolour dots in other hues",
+    "Fill the soft dots to make a solid block",
+    "Add outlines, shadows or gradients"
+   ]
+  }
+ }
+}

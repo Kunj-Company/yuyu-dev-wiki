@@ -1,0 +1,166 @@
+/*
+ * Yuyu design tokens (docs/DESIGN.md §2). Every colour, radius, shadow, and
+ * motion value used by components comes from here; components never hard-code
+ * hex values.
+ *
+ * Colour mode: `data-color-mode="light" | "dark"` on <html> is an explicit
+ * user choice stored in the browser. With no attribute, the operating system
+ * preference decides.
+ */
+
+:root,
+:root[data-color-mode="light"] {
+  color-scheme: light;
+
+  /* Neutrals */
+  --yy-bg-canvas: #ffffff;
+  --yy-bg-subtle: #fafaf9;
+  --yy-bg-muted: #f4f4f2;
+  --yy-bg-emphasis: #efeeea;
+  --yy-bg-track: #f0efeb;
+  --yy-border: #e7e6e2;
+  --yy-border-strong: #d4d3ce;
+  --yy-text: #18181b;
+  --yy-text-secondary: #3f3f46;
+  --yy-text-muted: #5f5e5a;
+  --yy-text-disabled: #a1a09a;
+
+  /* Yuyu primary ("ink") */
+  --yy-primary: #18181b;
+  --yy-on-primary: #ffffff;
+  --yy-inverse-surface: #18181b;
+  --yy-on-inverse: #ffffff;
+
+  /* Brand: the dot sign (Figma "Brand — Dot sign"). Marigold is for dots and
+     fills only, never text. */
+  --yy-brand-marigold: #ffb547;
+  --yy-brand-marigold-deep: #e8930c;
+  /* Bright dots under 32px: deep marigold on light, marigold on dark. */
+  --yy-brand-marigold-small: #e8930c;
+  --yy-brand-dot-base: #18181b;
+  --yy-brand-dot-off: #e7e6e2;
+  --yy-highlight-peach: #fde7c8;
+  --yy-tint-peach: #fff4e5;
+
+  /* Status */
+  --yy-success-bg: #dcfce7;
+  --yy-success-fg: #166534;
+  --yy-success-solid: #15803d;
+  --yy-warning-bg: #fef3c7;
+  --yy-warning-fg: #92400e;
+  --yy-warning-solid: #f59e0b;
+  --yy-danger-bg: #fee2e2;
+  --yy-danger-fg: #b91c1c;
+  --yy-danger-solid: #b91c1c;
+  --yy-danger-border: #fca5a5;
+
+  /* Event accent defaults (overridden inline on event pages, see lib/theme/accent.ts) */
+  --yy-accent: #c2410c;
+  --yy-accent-soft: #faf0ec;
+  --yy-on-accent: #ffffff;
+  --yy-accent-text: #c2410c;
+
+  /* Elevation */
+  --yy-shadow-raised: 0 1px 2px rgba(24, 24, 27, 0.04), 0 12px 32px rgba(24, 24, 27, 0.06);
+  --yy-shadow-float: 0 1px 2px rgba(24, 24, 27, 0.04), 0 24px 48px rgba(24, 24, 27, 0.08);
+  --yy-shadow-ticket: 0 1px 2px rgba(24, 24, 27, 0.06), 0 16px 40px rgba(24, 24, 27, 0.1);
+  --yy-shadow-segment: 0 1px 3px rgba(24, 24, 27, 0.12);
+
+  /* Focus ring colour (event pages swap this to the accent) */
+  --yy-focus: var(--yy-primary);
+}
+
+/* `.yy-dark-band` keeps a section dark on light pages (landing "At the door", closing CTA). */
+:root[data-color-mode="dark"],
+.yy-dark-band {
+  color-scheme: dark;
+
+  --yy-bg-canvas: #111113;
+  --yy-bg-subtle: #18181b;
+  --yy-bg-muted: #232326;
+  --yy-bg-emphasis: #2a2a2e;
+  --yy-bg-track: #2a2a2e;
+  --yy-border: #2a2a2e;
+  --yy-border-strong: #3f3f46;
+  --yy-text: #f4f4f5;
+  --yy-text-secondary: #d4d4d8;
+  --yy-text-muted: #a1a1aa;
+  --yy-text-disabled: #71717a;
+
+  --yy-primary: #f4f4f5;
+  --yy-on-primary: #18181b;
+  --yy-inverse-surface: #1c1c1f;
+  --yy-on-inverse: #f4f4f5;
+
+  --yy-brand-marigold: #ffb547;
+  --yy-brand-marigold-deep: #e8930c;
+  --yy-brand-marigold-small: #ffb547;
+  --yy-brand-dot-base: #f4f4f5;
+  --yy-brand-dot-off: #2a2a2e;
+  --yy-highlight-peach: #4a3418;
+  --yy-tint-peach: #2a1f10;
+
+  --yy-success-bg: #13301f;
+  --yy-success-fg: #86efac;
+  --yy-warning-bg: #33270b;
+  --yy-warning-fg: #fcd34d;
+  --yy-danger-bg: #3a1414;
+  --yy-danger-fg: #f87171;
+  --yy-danger-border: #7f1d1d;
+
+  --yy-accent-soft: #2a1812;
+  --yy-accent-text: #fb8a5b;
+
+  --yy-shadow-raised: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --yy-shadow-float: 0 24px 48px rgba(0, 0, 0, 0.5);
+  --yy-shadow-ticket: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.5);
+  --yy-shadow-segment: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* No explicit choice: follow the operating system. Mirrors the dark block above. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-color-mode]) {
+    color-scheme: dark;
+
+    --yy-bg-canvas: #111113;
+    --yy-bg-subtle: #18181b;
+    --yy-bg-muted: #232326;
+    --yy-bg-emphasis: #2a2a2e;
+    --yy-bg-track: #2a2a2e;
+    --yy-border: #2a2a2e;
+    --yy-border-strong: #3f3f46;
+    --yy-text: #f4f4f5;
+    --yy-text-secondary: #d4d4d8;
+    --yy-text-muted: #a1a1aa;
+    --yy-text-disabled: #71717a;
+
+    --yy-primary: #f4f4f5;
+    --yy-on-primary: #18181b;
+    --yy-inverse-surface: #1c1c1f;
+    --yy-on-inverse: #f4f4f5;
+
+    --yy-brand-marigold: #ffb547;
+    --yy-brand-marigold-deep: #e8930c;
+    --yy-brand-marigold-small: #ffb547;
+    --yy-brand-dot-base: #f4f4f5;
+    --yy-brand-dot-off: #2a2a2e;
+    --yy-highlight-peach: #4a3418;
+    --yy-tint-peach: #2a1f10;
+
+    --yy-success-bg: #13301f;
+    --yy-success-fg: #86efac;
+    --yy-warning-bg: #33270b;
+    --yy-warning-fg: #fcd34d;
+    --yy-danger-bg: #3a1414;
+    --yy-danger-fg: #f87171;
+    --yy-danger-border: #7f1d1d;
+
+    --yy-accent-soft: #2a1812;
+    --yy-accent-text: #fb8a5b;
+
+    --yy-shadow-raised: 0 12px 32px rgba(0, 0, 0, 0.5);
+    --yy-shadow-float: 0 24px 48px rgba(0, 0, 0, 0.5);
+    --yy-shadow-ticket: 0 1px 2px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.5);
+    --yy-shadow-segment: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+}

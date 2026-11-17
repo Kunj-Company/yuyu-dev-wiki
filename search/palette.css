@@ -1,0 +1,100 @@
+/*
+ * The shared search palette. Colours come from Yuyu's --yy-* tokens with light fallbacks, so it follows
+ * light and dark in the documentation and in the component library without any per-site styling.
+ */
+.yy-s-lock { overflow: hidden; }
+.yy-s-overlay {
+  position: fixed; inset: 0; z-index: 2147483000; display: flex; align-items: flex-start; justify-content: center;
+  padding: 8vh 12px 12px; background: rgba(0, 0, 0, 0.45);
+  font-family: "Figtree Variable", system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 15px; line-height: 1.45;
+  color: var(--yy-text, #18181b);
+}
+.yy-s-overlay[hidden] { display: none; }
+.yy-s-overlay *, .yy-s-overlay *::before, .yy-s-overlay *::after { box-sizing: border-box; }
+.yy-s-dialog {
+  display: flex; flex-direction: column; width: 100%; max-width: 720px; max-height: 82vh; overflow: hidden;
+  background: var(--yy-bg-canvas, #fff); border: 1px solid var(--yy-border, #e7e6e2); border-radius: 20px;
+  box-shadow: var(--yy-shadow-float, 0 24px 48px rgba(24, 24, 27, 0.18));
+}
+.yy-s-head { display: flex; align-items: center; gap: 8px; padding: 0 16px; border-bottom: 1px solid var(--yy-border, #e7e6e2); }
+.yy-s-glass { font-size: 22px; line-height: 1; color: var(--yy-text-muted, #5f5e5a); }
+.yy-s-input {
+  flex: 1; min-width: 0; height: 56px; padding: 0; border: 0; outline: 0; background: transparent;
+  font: inherit; font-size: 17px; color: var(--yy-text, #18181b);
+}
+.yy-s-input::placeholder { color: var(--yy-text-muted, #5f5e5a); }
+.yy-s-clear { width: 28px; height: 28px; border: 0; border-radius: 8px; background: transparent; font-size: 20px; line-height: 1; color: var(--yy-text-muted, #5f5e5a); cursor: pointer; }
+.yy-s-clear[hidden] { display: none; }
+.yy-s-clear:hover { color: var(--yy-text, #18181b); background: var(--yy-bg-muted, #f4f4f2); }
+.yy-s-kbd, .yy-s-hints kbd {
+  padding: 1px 6px; border: 1px solid var(--yy-border, #e7e6e2); border-radius: 6px; background: var(--yy-bg-canvas, #fff);
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; color: var(--yy-text-muted, #5f5e5a);
+}
+.yy-s-tabs { display: flex; gap: 6px; padding: 8px 12px; border-bottom: 1px solid var(--yy-border, #e7e6e2); background: var(--yy-bg-subtle, #fafaf9); overflow-x: auto; }
+.yy-s-tabs:empty { display: none; }
+.yy-s-tab {
+  display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border: 1px solid transparent; border-radius: 999px;
+  background: transparent; font: inherit; font-size: 13px; font-weight: 600; color: var(--yy-text-secondary, #3f3f46); cursor: pointer; white-space: nowrap;
+}
+.yy-s-tab:hover { background: var(--yy-bg-muted, #f4f4f2); }
+.yy-s-tab[aria-selected="true"] { background: var(--yy-primary, #18181b); color: var(--yy-on-primary, #fff); }
+.yy-s-tabcount { font-size: 12px; font-weight: 600; opacity: 0.7; }
+.yy-s-body { flex: 1; min-height: 0; overflow-y: auto; }
+.yy-s-list { margin: 0; padding: 8px; list-style: none; }
+.yy-s-item { display: flex; align-items: flex-start; gap: 12px; padding: 9px 12px; border-radius: 12px; cursor: pointer; }
+.yy-s-item[aria-selected="true"] { background: var(--yy-bg-muted, #f4f4f2); }
+.yy-s-kind {
+  flex: none; width: 5.5rem; margin-top: 2px; padding: 1px 8px; border-radius: 999px; text-align: center;
+  font-size: 12px; font-weight: 600; background: var(--yy-bg-muted, #f4f4f2); color: var(--yy-text, #18181b);
+}
+.yy-s-item[aria-selected="true"] .yy-s-kind { background: var(--yy-bg-emphasis, #efeeea); }
+.yy-s-kind-component, .yy-s-kind-docs { background: var(--yy-primary, #18181b) !important; color: var(--yy-on-primary, #fff) !important; }
+.yy-s-kind-token, .yy-s-kind-type, .yy-s-kind-scale { background: var(--yy-tint-peach, #fff4e5) !important; }
+.yy-s-kind-asset { background: var(--yy-success-bg, #dcfce7) !important; color: var(--yy-success-fg, #166534) !important; }
+.yy-s-kind-figma { background: var(--yy-warning-bg, #fef3c7) !important; color: var(--yy-warning-fg, #92400e) !important; }
+.yy-s-kind-page { background: var(--yy-inverse-surface, #18181b) !important; color: var(--yy-on-inverse, #fff) !important; }
+.yy-s-text { display: flex; flex: 1; min-width: 0; flex-direction: column; }
+.yy-s-titleline { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.yy-s-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13.5px; font-weight: 600; }
+.yy-s-exact { flex: none; padding: 0 6px; border-radius: 4px; background: var(--yy-success-bg, #dcfce7); color: var(--yy-success-fg, #166534); font-size: 12px; font-weight: 600; }
+.yy-s-context { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12.5px; color: var(--yy-text-secondary, #3f3f46); }
+.yy-s-snippet { margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 12.5px; color: var(--yy-text-muted, #5f5e5a); }
+.yy-s-site { flex: none; margin-top: 3px; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--yy-text-muted, #5f5e5a); }
+.yy-s-mark { padding: 0 1px; border-radius: 3px; background: var(--yy-highlight-peach, #fde7c8); color: inherit; }
+.yy-s-help { padding: 18px 20px; color: var(--yy-text-secondary, #3f3f46); }
+.yy-s-help p { margin: 0 0 8px; }
+.yy-s-strong { font-weight: 700; color: var(--yy-text, #18181b); }
+.yy-s-overline { margin-top: 14px !important; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--yy-text-muted, #5f5e5a); }
+.yy-s-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.yy-s-chip {
+  padding: 4px 12px; border: 1px solid var(--yy-border, #e7e6e2); border-radius: 999px; background: transparent;
+  font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 13px; color: var(--yy-text-secondary, #3f3f46); cursor: pointer;
+}
+.yy-s-chip:hover { background: var(--yy-bg-subtle, #fafaf9); color: var(--yy-text, #18181b); }
+.yy-s-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 16px; border-top: 1px solid var(--yy-border, #e7e6e2); background: var(--yy-bg-subtle, #fafaf9); font-size: 12.5px; color: var(--yy-text-muted, #5f5e5a); }
+.yy-s-hints { display: none; gap: 14px; }
+@media (min-width: 640px) { .yy-s-hints { display: flex; } }
+.yy-s-dialog :focus-visible { outline: 2px solid var(--yy-text, #18181b); outline-offset: 2px; }
+/* The search field shows focus on the whole row, not as a box around the text. */
+.yy-s-dialog .yy-s-input:focus-visible { outline: 0; }
+.yy-s-head:focus-within { box-shadow: inset 0 -2px 0 var(--yy-text, #18181b); }
+@media (max-width: 639px) {
+  .yy-s-overlay { padding: 0; }
+  .yy-s-dialog { max-width: none; max-height: 100dvh; height: 100dvh; border-radius: 0; border: 0; }
+  .yy-s-site { display: none; }
+  .yy-s-kind { width: 4.5rem; }
+}
+
+/* The trigger both sites render: <button data-yy-search class="yy-search-trigger">. */
+.yy-search-trigger {
+  display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border: 1px solid var(--yy-border-strong, #d4d3ce);
+  border-radius: 999px; background: var(--yy-bg-subtle, #fafaf9); font: inherit; font-size: 14px; color: var(--yy-text-secondary, #3f3f46); cursor: pointer;
+}
+.yy-search-trigger:hover { background: var(--yy-bg-muted, #f4f4f2); }
+.yy-search-trigger .yy-search-label { display: none; }
+.yy-search-trigger kbd { display: none; padding: 0 6px; border: 1px solid var(--yy-border, #e7e6e2); border-radius: 5px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; color: var(--yy-text-muted, #5f5e5a); }
+@media (min-width: 640px) {
+  .yy-search-trigger { width: 220px; }
+  .yy-search-trigger .yy-search-label { display: inline; }
+  .yy-search-trigger kbd { display: inline; margin-left: auto; }
+}

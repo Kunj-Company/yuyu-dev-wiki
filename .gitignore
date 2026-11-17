@@ -2,3 +2,7 @@ node_modules/
 docs/.vitepress/dist/
 docs/.vitepress/cache/
 .DS_Store
+docs/public/library/
+docs/public/design-system/
+docs/public/llms.txt
+docs/public/search/

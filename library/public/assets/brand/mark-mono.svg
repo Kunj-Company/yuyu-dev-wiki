@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Yuyu">
+  <title>Yuyu</title>
+  <circle cx="10" cy="10" r="10" fill="#18181B"/>
+  <circle cx="110" cy="10" r="10" fill="#18181B"/>
+  <circle cx="35" cy="35" r="10" fill="#18181B"/>
+  <circle cx="85" cy="35" r="10" fill="#18181B"/>
+  <circle cx="60" cy="60" r="10" fill="#18181B"/>
+  <circle cx="60" cy="85" r="10" fill="#18181B"/>
+  <circle cx="60" cy="110" r="10" fill="#18181B"/>
+</svg>

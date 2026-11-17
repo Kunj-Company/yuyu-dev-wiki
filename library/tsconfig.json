@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", "lib": ["ES2022", "DOM", "DOM.Iterable"], "module": "ESNext", "moduleResolution": "bundler",
+    "jsx": "react-jsx", "strict": true, "noEmit": true, "skipLibCheck": true, "resolveJsonModule": true,
+    "allowImportingTsExtensions": true, "isolatedModules": true, "types": ["vite/client"],
+    "baseUrl": ".",
+    "paths": {
+      "next/link": ["src/shims/next-link.tsx"],
+      "next/navigation": ["src/shims/next-navigation.ts"],
+      "next-auth/react": ["src/shims/next-auth-react.ts"],
+      "@/components/auth/useAuthSession": ["src/shims/useAuthSession.ts"],
+      "@/lib/appShell": ["src/shims/appShell.ts"],
+      "@/content/help/screenshots.json": ["src/shims/screenshots.json"],
+      "@/*": ["src/vendor/*"]
+    }
+  },
+  "include": ["src", "../search"]
+}

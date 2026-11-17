@@ -1,0 +1,494 @@
+@import "tailwindcss";
+@import "./styles/tokens.css";
+
+/* Opt into class-based dark variants that follow the same attribute as the tokens. */
+@custom-variant dark (&:where([data-color-mode="dark"], [data-color-mode="dark"] *));
+
+/*
+ * Tailwind theme mapped onto the design tokens (docs/DESIGN.md §9.1).
+ * `inline` keeps the utilities pointing at the live CSS variables so light,
+ * dark, and per-event accents switch without regenerating classes.
+ */
+@theme inline {
+  --color-canvas: var(--yy-bg-canvas);
+  --color-subtle: var(--yy-bg-subtle);
+  --color-muted: var(--yy-bg-muted);
+  --color-emphasis: var(--yy-bg-emphasis);
+  --color-track: var(--yy-bg-track);
+  --color-line: var(--yy-border);
+  --color-line-strong: var(--yy-border-strong);
+  --color-ink: var(--yy-text);
+  --color-ink-secondary: var(--yy-text-secondary);
+  --color-ink-muted: var(--yy-text-muted);
+  --color-ink-disabled: var(--yy-text-disabled);
+
+  --color-primary: var(--yy-primary);
+  --color-on-primary: var(--yy-on-primary);
+  --color-inverse: var(--yy-inverse-surface);
+  --color-on-inverse: var(--yy-on-inverse);
+
+  --color-brand-marigold: var(--yy-brand-marigold);
+  --color-brand-marigold-deep: var(--yy-brand-marigold-deep);
+  --color-brand-dot-base: var(--yy-brand-dot-base);
+  --color-brand-dot-off: var(--yy-brand-dot-off);
+  --color-highlight-peach: var(--yy-highlight-peach);
+  --color-tint-peach: var(--yy-tint-peach);
+
+  --color-success-bg: var(--yy-success-bg);
+  --color-success-fg: var(--yy-success-fg);
+  --color-success-solid: var(--yy-success-solid);
+  --color-warning-bg: var(--yy-warning-bg);
+  --color-warning-fg: var(--yy-warning-fg);
+  --color-warning-solid: var(--yy-warning-solid);
+  --color-danger-bg: var(--yy-danger-bg);
+  --color-danger-fg: var(--yy-danger-fg);
+  --color-danger-solid: var(--yy-danger-solid);
+  --color-danger-border: var(--yy-danger-border);
+
+  --color-accent: var(--yy-accent);
+  --color-accent-soft: var(--yy-accent-soft);
+  --color-on-accent: var(--yy-on-accent);
+  --color-accent-text: var(--yy-accent-text);
+
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Figtree Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 28px;
+
+  --shadow-raised: var(--yy-shadow-raised);
+  --shadow-float: var(--yy-shadow-float);
+  --shadow-ticket: var(--yy-shadow-ticket);
+  --shadow-segment: var(--yy-shadow-segment);
+
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 960px;
+  --breakpoint-lg: 1200px;
+
+  --ease-yy: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/*
+ * Event pages set `--yy-accent-*-light` / `-dark` inline (lib/theme/accent.ts);
+ * this scope picks the pair that matches the current colour mode.
+ */
+.yy-accent-scope {
+  --yy-accent: var(--yy-accent-light);
+  --yy-accent-soft: var(--yy-accent-soft-light);
+  --yy-on-accent: var(--yy-on-accent-light);
+  --yy-accent-text: var(--yy-accent-text-light);
+  --yy-focus: var(--yy-accent-text);
+}
+
+:root[data-color-mode="dark"] .yy-accent-scope {
+  --yy-accent: var(--yy-accent-dark);
+  --yy-accent-soft: var(--yy-accent-soft-dark);
+  --yy-on-accent: var(--yy-on-accent-dark);
+  --yy-accent-text: var(--yy-accent-text-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-color-mode]) .yy-accent-scope {
+    --yy-accent: var(--yy-accent-dark);
+    --yy-accent-soft: var(--yy-accent-soft-dark);
+    --yy-on-accent: var(--yy-on-accent-dark);
+    --yy-accent-text: var(--yy-accent-text-dark);
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--yy-bg-canvas);
+    color: var(--yy-text);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--yy-text);
+  }
+
+  code, kbd, samp, pre {
+    font-family: var(--font-mono);
+  }
+
+  ::selection {
+    background: var(--yy-highlight-peach);
+    color: var(--yy-text);
+  }
+
+  /* Visible focus ring on everything (docs/DESIGN.md §7). */
+  :focus-visible {
+    outline: 2px solid var(--yy-focus);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Type scale (docs/DESIGN.md §2.6). Desktop sizes, mobile below 640px. */
+  .text-display-xl { font-family: var(--font-display); font-weight: 800; font-size: 44px; line-height: 0.98; letter-spacing: -0.035em; }
+  .text-display-l { font-family: var(--font-display); font-weight: 800; font-size: 40px; line-height: 1; letter-spacing: -0.03em; }
+  .text-display-m { font-family: var(--font-display); font-weight: 800; font-size: 36px; line-height: 1; letter-spacing: -0.03em; }
+  .text-h1 { font-family: var(--font-display); font-weight: 800; font-size: 30px; line-height: 1.1; letter-spacing: -0.02em; }
+  .text-h2 { font-family: var(--font-display); font-weight: 800; font-size: 24px; line-height: 1.15; letter-spacing: -0.01em; }
+  .text-h3 { font-family: var(--font-display); font-weight: 800; font-size: 20px; line-height: 1.2; }
+  .text-h4 { font-family: var(--font-display); font-weight: 800; font-size: 18px; line-height: 1.25; }
+  /* Card and sub-section titles inside the app ("Invite someone", "New API client"). */
+  .text-title { font-family: var(--font-sans); font-weight: 700; font-size: 16px; line-height: 1.35; }
+  .text-body-l { font-size: 17px; line-height: 1.6; }
+  .text-body { font-size: 16px; line-height: 1.6; }
+  .text-body-ui { font-size: 15px; line-height: 1.5; }
+  .text-label { font-size: 14px; font-weight: 600; line-height: 1.4; }
+  .text-caption { font-size: 13px; line-height: 1.45; }
+  .text-overline { font-size: 12px; font-weight: 700; line-height: 1.3; letter-spacing: 0.06em; text-transform: uppercase; }
+  .text-mono { font-family: var(--font-mono); font-size: 13px; line-height: 1.5; }
+
+  @media (min-width: 640px) {
+    .text-display-xl { font-size: 76px; }
+    .text-display-l { font-size: 68px; }
+    .text-display-m { font-size: 54px; }
+    .text-h1 { font-size: 38px; }
+    .text-h2 { font-size: 30px; }
+    .text-h3 { font-size: 24px; }
+    .text-h4 { font-size: 20px; }
+    .text-body-l { font-size: 19px; }
+    .text-overline { font-size: 13px; }
+  }
+
+  /* Highlighter mark under a display word on Yuyu's own pages. */
+  .yy-highlight {
+    background-image: linear-gradient(transparent 62%, var(--yy-highlight-peach) 62%, var(--yy-highlight-peach) 92%, transparent 92%);
+  }
+
+  /* Accent placeholder cover: solid accent with a soft white dot grid. */
+  .yy-cover-placeholder {
+    background-color: var(--yy-accent);
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.17) 1.5px, transparent 1.6px);
+    background-size: 22px 22px;
+  }
+
+  /* Quiet dotted band at the top of dashboard organisation cards. */
+  .yy-dot-strip {
+    background-color: var(--yy-bg-muted);
+    background-image: radial-gradient(circle, var(--yy-border-strong) 1.5px, transparent 1.6px);
+    background-size: 16px 16px;
+  }
+}
+
+.skip-link {
+  position: fixed;
+  left: 12px;
+  top: 12px;
+  z-index: 2000;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: var(--yy-on-primary);
+  background: var(--yy-primary);
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Motion (docs/DESIGN.md §2.10): no translate/scale, fades at most 120ms. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes yy-success-in {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.yy-success-in {
+  animation: yy-success-in 360ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes yy-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes yy-dialog-in {
+  /* Centring comes from the `translate` property (Tailwind v4), so the
+     animation only nudges with `transform`; mixing both used to double the
+     offset and make dialogs fly in from the top-left. */
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes yy-toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Organiser-written rich text (sanitised HTML from the event page editor). */
+@layer components {
+  .yy-prose { color: var(--yy-text-secondary); font-size: 16px; line-height: 1.6; overflow-wrap: anywhere; }
+  .yy-prose > * + * { margin-top: 0.85em; }
+  .yy-prose h2 { font-family: var(--font-display); font-weight: 800; font-size: 24px; line-height: 1.2; color: var(--yy-text); margin-top: 1.4em; }
+  .yy-prose h3 { font-family: var(--font-display); font-weight: 800; font-size: 20px; line-height: 1.25; color: var(--yy-text); margin-top: 1.2em; }
+  .yy-prose strong { color: var(--yy-text); font-weight: 700; }
+  .yy-prose a { color: var(--yy-accent-text); text-decoration: underline; text-underline-offset: 3px; }
+  .yy-prose ul { list-style: disc; padding-left: 1.4em; }
+  .yy-prose ol { list-style: decimal; padding-left: 1.4em; }
+  .yy-prose li + li { margin-top: 0.3em; }
+  .yy-prose blockquote { border-left: 3px solid var(--yy-border-strong); padding-left: 1em; color: var(--yy-text-muted); }
+}
+
+/* Colour-mode switch (components/providers.tsx). The new mode is revealed as a
+   soft-edged circle growing from the toggle; the old snapshot stays still. */
+@property --yy-reveal {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+.yy-theme-reveal::view-transition-old(root),
+.yy-theme-reveal::view-transition-new(root),
+.yy-theme-reveal-soft::view-transition-old(root),
+.yy-theme-reveal-soft::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+.yy-theme-reveal::view-transition-new(root),
+.yy-theme-reveal-soft::view-transition-new(root) {
+  z-index: 1;
+}
+
+.yy-theme-reveal-soft::view-transition-new(root) {
+  -webkit-mask-image: radial-gradient(circle at var(--yy-reveal-x) var(--yy-reveal-y), #000 calc(var(--yy-reveal) - 160px), transparent var(--yy-reveal));
+  mask-image: radial-gradient(circle at var(--yy-reveal-x) var(--yy-reveal-y), #000 calc(var(--yy-reveal) - 160px), transparent var(--yy-reveal));
+}
+
+/* Fallback when View Transitions aren't available: a gentle colour cross-fade. */
+.yy-theme-fade,
+.yy-theme-fade *,
+.yy-theme-fade *::before,
+.yy-theme-fade *::after {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow !important;
+  transition-duration: 420ms !important;
+  transition-timing-function: cubic-bezier(0.45, 0, 0.2, 1) !important;
+}
+
+.yy-mode-icon {
+  transition: transform 520ms cubic-bezier(0.34, 1.4, 0.64, 1), opacity 320ms ease-out;
+}
+
+/* 404 companion (components/feedback/NotFoundPet.tsx). Motion is driven by data-state. */
+.yy-pet { will-change: transform; }
+.yy-pet-body { transition: transform 160ms ease-out; }
+.yy-pet-leg { transform-box: fill-box; transform-origin: 50% 0; }
+.yy-pet-tail { transform-box: fill-box; transform-origin: 100% 100%; animation: yy-pet-wag 1.4s ease-in-out infinite; }
+.yy-pet-head { transform-box: fill-box; transform-origin: 30% 80%; }
+.yy-pet-pupils { transform: translate(var(--look-x, 0px), var(--look-y, 0px)); transition: transform 120ms ease-out; }
+.yy-pet-eyes { transform-box: fill-box; transform-origin: 50% 50%; animation: yy-pet-blink 5.2s infinite; }
+.yy-pet-sleepy-eyes { opacity: 0; }
+
+.yy-pet[data-state="walk"] .yy-pet-leg-a,
+.yy-pet[data-state="run"] .yy-pet-leg-a { animation: yy-pet-step 0.32s ease-in-out infinite alternate; }
+.yy-pet[data-state="walk"] .yy-pet-leg-b,
+.yy-pet[data-state="run"] .yy-pet-leg-b { animation: yy-pet-step 0.32s ease-in-out infinite alternate-reverse; }
+.yy-pet[data-state="run"] .yy-pet-leg { animation-duration: 0.18s; }
+.yy-pet[data-state="walk"] .yy-pet-torso,
+.yy-pet[data-state="run"] .yy-pet-torso { animation: yy-pet-bob 0.32s ease-in-out infinite alternate; }
+.yy-pet[data-state="run"] .yy-pet-torso { animation-duration: 0.18s; }
+.yy-pet[data-state="run"] .yy-pet-tail { animation-duration: 0.3s; }
+.yy-pet[data-state="sit"] .yy-pet-head { animation: yy-pet-tilt 4s ease-in-out infinite; }
+.yy-pet[data-happy] .yy-pet-tail { animation: yy-pet-wag 0.18s ease-in-out infinite; }
+.yy-pet[data-happy] .yy-pet-torso { animation: yy-pet-bob 0.22s ease-in-out 4 alternate; }
+
+.yy-pet[data-state="sleep"] .yy-pet-eyes { opacity: 0; animation: none; }
+.yy-pet[data-state="sleep"] .yy-pet-sleepy-eyes { opacity: 1; }
+.yy-pet[data-state="sleep"] .yy-pet-torso { animation: yy-pet-breathe 3s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+.yy-pet[data-state="sleep"] .yy-pet-tail { animation: none; }
+
+.yy-pet-zzz {
+  position: absolute;
+  right: 4px;
+  top: -6px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--yy-text-muted, currentColor);
+  opacity: 0;
+  pointer-events: none;
+}
+.yy-pet[data-state="sleep"] .yy-pet-zzz { animation: yy-pet-zzz 2.8s ease-out infinite; }
+.yy-pet[data-state="sleep"] .yy-pet-zzz:nth-of-type(2) { animation-delay: 1.4s; font-size: 11px; }
+
+.yy-pet-heart {
+  position: absolute;
+  top: -4px;
+  color: var(--yy-accent);
+  font-size: 16px;
+  line-height: 1;
+  pointer-events: none;
+  animation: yy-pet-heart 1.2s ease-out forwards;
+}
+
+.yy-pet-paw {
+  position: absolute;
+  bottom: 10px;
+  width: 9px;
+  height: 7px;
+  border-radius: 50% 50% 45% 45%;
+  background: var(--yy-accent);
+  opacity: 0;
+  pointer-events: none;
+  animation: yy-pet-paw 1.8s ease-out forwards;
+}
+
+@keyframes yy-pet-step { from { transform: rotate(-16deg); } to { transform: rotate(16deg); } }
+@keyframes yy-pet-bob { from { transform: translateY(0); } to { transform: translateY(-2.5px); } }
+@keyframes yy-pet-wag { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(14deg); } }
+@keyframes yy-pet-tilt { 0%, 70%, 100% { transform: rotate(0deg); } 80%, 90% { transform: rotate(-9deg); } }
+@keyframes yy-pet-blink { 0%, 94%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+@keyframes yy-pet-breathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.95); } }
+@keyframes yy-pet-zzz { 0% { opacity: 0; transform: translate(0, 0) scale(0.7); } 25% { opacity: 0.8; } 100% { opacity: 0; transform: translate(14px, -26px) scale(1.2); } }
+@keyframes yy-pet-heart { 0% { opacity: 0; transform: translateY(0) scale(0.6); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-34px) scale(1.15); } }
+@keyframes yy-pet-paw { 0% { opacity: 0.35; } 100% { opacity: 0; } }
+
+/* Light/dark asset pairs (components/landing/ThemedImage.tsx): dot icons and the
+   logo have ink dots that must follow the theme. */
+.yy-img-dark { display: none; }
+:root[data-color-mode="dark"] .yy-img-light,
+.yy-dark-band .yy-img-light { display: none; }
+:root[data-color-mode="dark"] .yy-img-dark,
+.yy-dark-band .yy-img-dark { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-color-mode]) .yy-img-light { display: none; }
+  :root:not([data-color-mode]) .yy-img-dark { display: block; }
+}
+
+/* DotLoader (components/brand/DotLoader.tsx): the three dots hop one after
+   the other; with reduced motion they rest on the baseline. */
+@keyframes yy-dot-jump {
+  0%, 45%, 100% { transform: translateY(0); }
+  20% { transform: translateY(-80%); }
+}
+.yy-dot-loader-jump {
+  animation: yy-dot-jump 1.2s cubic-bezier(0.45, 0, 0.3, 1) infinite;
+}
+
+/* Dot faces (components/brand/DotFace.tsx): on hover of the face or a .group
+   card, dots ripple out from the centre, the eyes blink and the face lifts.
+   Mouse only, and nothing moves under reduced motion. */
+@keyframes yy-face-ripple {
+  0%, 100% { scale: 1; }
+  40% { scale: 1.16; }
+}
+@keyframes yy-face-blink {
+  0%, 50%, 74%, 100% { transform: none; }
+  62% { transform: scaleY(0.15); }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .yy-face {
+    transition: transform 320ms cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  .yy-face:hover,
+  .group:hover .yy-face {
+    transform: translateY(-4px) rotate(-4deg);
+  }
+  .yy-face:hover .yy-face-dot,
+  .group:hover .yy-face-dot {
+    animation: yy-face-ripple 560ms cubic-bezier(0.45, 0, 0.2, 1) var(--yy-face-delay, 0ms) both;
+  }
+  .yy-face:hover .yy-face-eye,
+  .group:hover .yy-face-eye {
+    animation:
+      yy-face-ripple 560ms cubic-bezier(0.45, 0, 0.2, 1) var(--yy-face-delay, 0ms) both,
+      yy-face-blink 900ms ease-in-out both;
+  }
+}
+
+/* 404 ticket (components/feedback/NotFoundExperience.tsx): once the stub is
+   torn off, both pieces get a jagged paper edge along the perforation. The
+   teeth are an SVG mask; drop-shadow follows them where box-shadow cannot. */
+@media (min-width: 640px) {
+  .yy-ripped-right {
+    mask:
+      linear-gradient(#000 0 0) left / calc(100% - 7px) 100% no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='10' viewBox='0 0 7 10'%3E%3Cpath d='M0 0L7 5L0 10Z'/%3E%3C/svg%3E") right / 7px 10px repeat-y;
+  }
+  .yy-ripped-left {
+    mask:
+      linear-gradient(#000 0 0) right / calc(100% - 7px) 100% no-repeat,
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='10' viewBox='0 0 7 10'%3E%3Cpath d='M7 0L0 5L7 10Z'/%3E%3C/svg%3E") left / 7px 10px repeat-y;
+  }
+}
+.yy-ticket-shadow { filter: drop-shadow(0 10px 22px rgb(0 0 0 / 0.1)); }
+
+/* ---- Live ticket tear-away (components/ticket/LiveTicket.tsx) ----
+   The ticket page stacks its QR stub below the main part, so these rip along
+   a horizontal perforation at every width (the 404 rules above are vertical
+   and desktop-only). Same SVG-mask teeth; pair with .yy-ticket-shadow. */
+.yy-ripped-bottom {
+  mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - 7px) no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M0 0L5 7L10 0Z'/%3E%3C/svg%3E") bottom / 10px 7px repeat-x;
+}
+.yy-ripped-top {
+  mask:
+    linear-gradient(#000 0 0) bottom / 100% calc(100% - 7px) no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M0 7L5 0L10 7Z'/%3E%3C/svg%3E") top / 10px 7px repeat-x;
+}
+/* ---- End live ticket tear-away ---- */
+
+/* ---- Guide procedures (components/help/mdx.tsx <Steps>) ----
+   Numbered peach step circles beside each item of the wrapped ordered list. */
+.help-steps > ol {
+  list-style: none;
+  counter-reset: help-step;
+  padding-left: 0;
+  gap: 14px;
+}
+.help-steps > ol > li {
+  counter-increment: help-step;
+  position: relative;
+  padding-left: 44px;
+  min-height: 28px;
+}
+.help-steps > ol > li::before {
+  content: counter(help-step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--yy-highlight-peach);
+  color: var(--yy-text);
+  font-size: 14px;
+  font-weight: 700;
+}
+/* ---- End guide procedures ---- */

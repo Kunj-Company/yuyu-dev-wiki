@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" role="img" aria-label="Yuyu">
+  <title>Yuyu</title>
+  <rect width="180" height="180" fill="#18181B"/>
+  <circle cx="42" cy="42" r="9" fill="#FFB547"/>
+  <circle cx="66" cy="42" r="9" fill="#2A2A2E"/>
+  <circle cx="90" cy="42" r="9" fill="#2A2A2E"/>
+  <circle cx="114" cy="42" r="9" fill="#2A2A2E"/>
+  <circle cx="138" cy="42" r="9" fill="#FFB547"/>
+  <circle cx="42" cy="66" r="9" fill="#2A2A2E"/>
+  <circle cx="66" cy="66" r="9" fill="#FFB547"/>
+  <circle cx="90" cy="66" r="9" fill="#2A2A2E"/>
+  <circle cx="114" cy="66" r="9" fill="#FFB547"/>
+  <circle cx="138" cy="66" r="9" fill="#2A2A2E"/>
+  <circle cx="42" cy="90" r="9" fill="#2A2A2E"/>
+  <circle cx="66" cy="90" r="9" fill="#2A2A2E"/>
+  <circle cx="90" cy="90" r="9" fill="#FFB547"/>
+  <circle cx="114" cy="90" r="9" fill="#2A2A2E"/>
+  <circle cx="138" cy="90" r="9" fill="#2A2A2E"/>
+  <circle cx="42" cy="114" r="9" fill="#2A2A2E"/>
+  <circle cx="66" cy="114" r="9" fill="#2A2A2E"/>
+  <circle cx="90" cy="114" r="9" fill="#FFB547"/>
+  <circle cx="114" cy="114" r="9" fill="#2A2A2E"/>
+  <circle cx="138" cy="114" r="9" fill="#2A2A2E"/>
+  <circle cx="42" cy="138" r="9" fill="#2A2A2E"/>
+  <circle cx="66" cy="138" r="9" fill="#2A2A2E"/>
+  <circle cx="90" cy="138" r="9" fill="#FFFFFF"/>
+  <circle cx="114" cy="138" r="9" fill="#2A2A2E"/>
+  <circle cx="138" cy="138" r="9" fill="#2A2A2E"/>
+</svg>

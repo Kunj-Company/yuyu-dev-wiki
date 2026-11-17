@@ -1,0 +1,237 @@
+/*
+ * Yuyu theme for the documentation site.
+ * Values come from Yuyu's own design tokens (app/styles/tokens.css, docs/DESIGN.md):
+ * ink primary, marigold dot-sign accents, warm neutrals, Bricolage Grotesque for
+ * headings and Figtree for text. Marigold is used for fills and marks, never for text.
+ */
+
+:root {
+  --yy-bg-canvas: #ffffff;
+  --yy-bg-subtle: #fafaf9;
+  --yy-bg-muted: #f4f4f2;
+  --yy-bg-emphasis: #efeeea;
+  --yy-border: #e7e6e2;
+  --yy-border-strong: #d4d3ce;
+  --yy-text: #18181b;
+  --yy-text-secondary: #3f3f46;
+  --yy-text-muted: #5f5e5a;
+  --yy-text-disabled: #a1a09a;
+  --yy-primary: #18181b;
+  --yy-on-primary: #ffffff;
+  --yy-marigold: #ffb547;
+  --yy-marigold-deep: #e8930c;
+  --yy-tint-peach: #fff4e5;
+  --yy-highlight-peach: #fde7c8;
+  --yy-success-bg: #dcfce7;
+  --yy-success-fg: #166534;
+  --yy-warning-bg: #fef3c7;
+  --yy-warning-fg: #92400e;
+  --yy-danger-bg: #fee2e2;
+  --yy-danger-fg: #b91c1c;
+  --yy-accent: #c2410c;
+  --yy-shadow-raised: 0 1px 2px rgba(24, 24, 27, 0.04), 0 12px 32px rgba(24, 24, 27, 0.06);
+}
+
+.dark {
+  --yy-bg-canvas: #111113;
+  --yy-bg-subtle: #18181b;
+  --yy-bg-muted: #232326;
+  --yy-bg-emphasis: #2a2a2e;
+  --yy-border: #2a2a2e;
+  --yy-border-strong: #3f3f46;
+  --yy-text: #f4f4f5;
+  --yy-text-secondary: #d4d4d8;
+  --yy-text-muted: #a1a1aa;
+  --yy-text-disabled: #71717a;
+  --yy-primary: #f4f4f5;
+  --yy-on-primary: #18181b;
+  --yy-tint-peach: #2a1f10;
+  --yy-highlight-peach: #4a3418;
+  --yy-success-bg: #13301f;
+  --yy-success-fg: #86efac;
+  --yy-warning-bg: #33270b;
+  --yy-warning-fg: #fcd34d;
+  --yy-danger-bg: #3a1414;
+  --yy-danger-fg: #f87171;
+  --yy-accent: #fb8a5b;
+  --yy-shadow-raised: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+:root {
+  /* Fonts */
+  --vp-font-family-base: "Figtree Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --vp-font-family-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --yy-font-display: "Bricolage Grotesque Variable", "Figtree Variable", system-ui, sans-serif;
+
+  /* Surfaces and text */
+  --vp-c-bg: var(--yy-bg-canvas);
+  --vp-c-bg-alt: var(--yy-bg-subtle);
+  --vp-c-bg-elv: var(--yy-bg-canvas);
+  --vp-c-bg-soft: var(--yy-bg-muted);
+  --vp-c-white: #ffffff;
+  --vp-c-black: #18181b;
+  --vp-c-text-1: var(--yy-text);
+  --vp-c-text-2: var(--yy-text-secondary);
+  --vp-c-text-3: var(--yy-text-muted);
+  --vp-c-divider: var(--yy-border);
+  --vp-c-border: var(--yy-border-strong);
+  --vp-c-gutter: var(--yy-border);
+
+  /* Brand: ink, like Yuyu's primary button. Links stay ink and are underlined. */
+  --vp-c-brand-1: var(--yy-primary);
+  --vp-c-brand-2: var(--yy-text-secondary);
+  --vp-c-brand-3: var(--yy-primary);
+  --vp-c-brand-soft: var(--yy-tint-peach);
+
+  /* Buttons: pills, as in the product */
+  --vp-button-brand-bg: var(--yy-primary);
+  --vp-button-brand-text: var(--yy-on-primary);
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-hover-bg: var(--yy-primary);
+  --vp-button-brand-hover-text: var(--yy-on-primary);
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-active-bg: var(--yy-primary);
+  --vp-button-brand-active-text: var(--yy-on-primary);
+  --vp-button-alt-bg: var(--yy-bg-canvas);
+  --vp-button-alt-text: var(--yy-text);
+  --vp-button-alt-border: var(--yy-border-strong);
+  --vp-button-alt-hover-bg: var(--yy-bg-subtle);
+  --vp-button-alt-hover-text: var(--yy-text);
+  --vp-button-alt-hover-border: var(--yy-border-strong);
+
+  /* Hero: plain ink name, no gradient */
+  --vp-home-hero-name-color: var(--yy-text);
+  --vp-home-hero-name-background: none;
+  --vp-home-hero-image-background-image: none;
+  --vp-home-hero-image-filter: none;
+
+  /* Callouts map onto Yuyu status colours */
+  --vp-custom-block-tip-bg: var(--yy-success-bg);
+  --vp-custom-block-tip-border: transparent;
+  --vp-custom-block-tip-text: var(--yy-success-fg);
+  --vp-custom-block-tip-code-bg: transparent;
+  --vp-custom-block-warning-bg: var(--yy-warning-bg);
+  --vp-custom-block-warning-border: transparent;
+  --vp-custom-block-warning-text: var(--yy-warning-fg);
+  --vp-custom-block-warning-code-bg: transparent;
+  --vp-custom-block-danger-bg: var(--yy-danger-bg);
+  --vp-custom-block-danger-border: transparent;
+  --vp-custom-block-danger-text: var(--yy-danger-fg);
+  --vp-custom-block-danger-code-bg: transparent;
+  --vp-custom-block-info-bg: var(--yy-bg-muted);
+  --vp-custom-block-info-border: transparent;
+  --vp-custom-block-info-text: var(--yy-text-secondary);
+  --vp-custom-block-details-bg: var(--yy-bg-subtle);
+  --vp-custom-block-details-border: var(--yy-border);
+  --vp-custom-block-details-text: var(--yy-text-secondary);
+
+  /* Code */
+  --vp-code-block-bg: var(--yy-bg-subtle);
+  --vp-code-bg: var(--yy-bg-muted);
+  --vp-code-color: var(--yy-text);
+  --vp-code-link-color: var(--yy-text);
+  --vp-code-line-highlight-color: var(--yy-bg-muted);
+
+  --vp-nav-height: 64px;
+  --yy-radius: 12px;
+}
+
+/* Headings: Bricolage Grotesque, tight */
+.VPHero .name,
+.VPHero .text,
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4 {
+  font-family: var(--yy-font-display);
+  letter-spacing: -0.02em;
+}
+.vp-doc h1 { font-weight: 800; letter-spacing: -0.03em; }
+.vp-doc h2 { font-weight: 700; border-top-color: var(--yy-border); }
+.VPHero .name { font-weight: 800; }
+.VPHero .text { font-weight: 800; color: var(--yy-text); }
+
+/* Links: ink with an underline, like Yuyu's quiet links */
+.vp-doc a {
+  color: var(--yy-text);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--yy-border-strong);
+  text-decoration-thickness: 1.5px;
+}
+.vp-doc a:hover { text-decoration-color: var(--yy-marigold-deep); }
+.vp-doc .header-anchor { text-decoration: none; }
+.vp-doc .custom-block a { color: inherit; }
+
+/* Shapes */
+.VPButton { border-radius: 9999px; font-weight: 600; }
+.VPFeature,
+.vp-doc .custom-block,
+.vp-doc div[class*="language-"],
+.vp-doc table { border-radius: var(--yy-radius); }
+.VPFeature { border: 1px solid var(--yy-border); background: var(--yy-bg-canvas); transition: background-color 0.18s; }
+.VPFeature:hover { background: var(--yy-bg-subtle); border-color: var(--yy-border-strong); }
+.VPFeature .title { font-family: var(--yy-font-display); font-weight: 700; letter-spacing: -0.01em; }
+.vp-doc table { display: table; overflow: hidden; border-collapse: separate; border-spacing: 0; border: 1px solid var(--yy-border); }
+.vp-doc th { background: var(--yy-bg-subtle); font-size: 13px; color: var(--yy-text-muted); text-transform: none; }
+.vp-doc tr { background: transparent; border-top: 0; }
+.vp-doc tr:nth-child(2n) { background: var(--yy-bg-subtle); }
+.vp-doc th, .vp-doc td { border: 0; border-top: 1px solid var(--yy-border); }
+.vp-doc thead th { border-top: 0; }
+.vp-doc :not(pre) > code { border-radius: 6px; font-size: 0.875em; }
+
+/* Navigation: active item gets a marigold mark; sidebar groups use small overlines */
+.VPNavBar { background-color: var(--yy-bg-canvas); border-bottom: 1px solid var(--yy-border); }
+.VPNavBarMenuLink.active,
+.VPNavBarMenuGroup.active .text { color: var(--yy-text); }
+.VPNavBarTitle .title { font-family: var(--yy-font-display); font-weight: 800; letter-spacing: -0.02em; }
+.VPSidebarItem.level-0 > .item > .text,
+.VPSidebarItem.level-0 > .item > .link > .text { font-family: var(--yy-font-display); font-weight: 700; letter-spacing: -0.01em; }
+.VPSidebarItem.is-active > .item > .link > .text { color: var(--yy-text); font-weight: 700; }
+.VPSidebarItem.is-active > .item .indicator { background-color: var(--yy-marigold-deep); }
+.VPDocAsideOutline .outline-link.active { color: var(--yy-text); font-weight: 600; }
+.VPDocAsideOutline .outline-marker { background-color: var(--yy-marigold-deep); }
+.VPLocalNav { background-color: var(--yy-bg-canvas); }
+
+/* Search */
+.DocSearch, .VPNavBarSearchButton { border-radius: 9999px; }
+
+/* Focus: ink ring */
+:focus-visible { outline: 2px solid var(--yy-text); outline-offset: 2px; }
+
+/* Mermaid diagrams: warm neutrals */
+.mermaid svg { max-width: 100%; height: auto; }
+
+/* Home hero: the dot sign sits on a soft plate at a size where the dots read clearly. */
+.VPHero .image { margin: 40px 0 32px; }
+.VPHero .image-container { width: 100%; height: auto; display: flex; justify-content: center; align-items: center; transform: none; }
+.VPHero .image-bg { display: none; }
+.VPHero .image-src {
+  position: static;
+  transform: none;
+  width: min(280px, 70vw);
+  height: auto;
+  max-width: none;
+  max-height: none;
+  box-sizing: border-box;
+  padding: 44px;
+  background: var(--yy-bg-subtle);
+  border: 1px solid var(--yy-border);
+  border-radius: 40px;
+  box-shadow: var(--yy-shadow-raised);
+}
+@media (min-width: 640px) {
+  .VPHero .image { margin: 0; }
+}
+@media (min-width: 960px) {
+  .VPHero .image { flex-grow: 1; order: 2; justify-content: center; }
+  .VPHero .image-container { width: auto; }
+  .VPHero .image-src { width: 320px; padding: 52px; }
+}
+
+/* The shared search trigger in the nav bar (search/palette.css styles the button itself). */
+.VPNavBar .yy-search-trigger { margin: 0 12px 0 20px; }
+@media (max-width: 639px) { .VPNavBar .yy-search-trigger { width: 40px; padding: 0; justify-content: center; margin: 0 8px 0 0; } }
+/* The palette renders outside the VitePress layout, so give it the theme's variables and the document dark class. */
+html.dark .yy-s-overlay { color-scheme: dark; }
